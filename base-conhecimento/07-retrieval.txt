@@ -1,0 +1,114 @@
+TÍTULO:
+Retrieval
+
+EXPLICAÇÃO:
+Retrieval significa recuperação de informação.
+
+Em um sistema RAG, retrieval é a etapa responsável por procurar na base de conhecimento os conteúdos mais relevantes para a pergunta do usuário.
+
+Retrieval pode ser entendido como o processo de busca e seleção das informações que serão utilizadas pelo restante do sistema.
+
+Ele não é a mesma coisa que embedding ou banco vetorial.
+
+Os embeddings podem ser utilizados para representar numericamente a pergunta e os conteúdos da base, enquanto um banco vetorial pode ser utilizado para armazenar e pesquisar esses vetores.
+
+O retrieval é o processo que utiliza mecanismos de busca para encontrar e recuperar as informações relevantes.
+
+Quando a busca utiliza embeddings, a pergunta do usuário é transformada em uma representação numérica e comparada com as representações dos conteúdos da base.
+
+O sistema calcula quais conteúdos possuem maior similaridade com a pergunta e organiza os resultados de acordo com sua relevância.
+
+O retrieval pode recuperar um único conteúdo ou vários conteúdos relacionados, dependendo da configuração do sistema.
+
+Por exemplo, o sistema pode selecionar os três conteúdos mais semelhantes à pergunta e utilizar esses resultados como possíveis fontes de contexto.
+
+Entretanto, aparecer entre os resultados mais semelhantes não significa automaticamente que um conteúdo seja adequado para responder à pergunta.
+
+Mesmo o melhor resultado disponível pode ter pouca relação com aquilo que o usuário perguntou.
+
+Por isso, o sistema pode utilizar critérios adicionais, como um limite mínimo de similaridade, para decidir se o conteúdo encontrado possui relevância suficiente.
+
+Se nenhum resultado atingir esse limite, o sistema pode considerar que não encontrou informação adequada na base.
+
+Esse comportamento ajuda a evitar que o RAG utilize um conteúdo apenas porque ele foi o resultado mais próximo entre opções que, na verdade, não respondem à pergunta.
+
+Os conteúdos aprovados pelo retrieval podem então ser utilizados como contexto para a etapa de geração da resposta.
+
+O retrieval não cria a resposta final e não funciona como uma LLM.
+
+Sua função é encontrar e recuperar informações que possam ajudar o sistema a responder.
+
+A qualidade do retrieval é muito importante para o funcionamento do RAG.
+
+Mesmo um bom modelo de linguagem pode produzir uma resposta inadequada se receber conteúdos errados, pouco relacionados ou insuficientes.
+
+Por isso, quando uma resposta de um RAG apresenta um problema, é importante verificar se o erro aconteceu na recuperação ou na geração.
+
+Se o retrieval encontrou o conteúdo errado, a LLM pode receber um contexto inadequado.
+
+Se o retrieval encontrou o conteúdo correto, mas a resposta final ficou errada, o problema pode estar em outra etapa do sistema.
+
+EXPLICAÇÃO SIMPLES:
+Imagine um bibliotecário.
+
+Você faz uma pergunta e ele procura, entre todos os materiais disponíveis, quais parecem conter a informação que você precisa.
+
+Ele não escreve a resposta para você.
+
+O trabalho dele é encontrar os materiais certos e colocá-los sobre a mesa.
+
+No RAG, retrieval é esse bibliotecário.
+
+Os embeddings podem ajudar o bibliotecário a perceber quais materiais possuem significados parecidos com a pergunta.
+
+Um banco vetorial pode ajudar a procurar esses materiais rapidamente.
+
+Mas retrieval é o processo de procurar, escolher e recuperar o que parece relevante.
+
+E existe um detalhe importante:
+
+o bibliotecário não deveria entregar qualquer livro apenas porque ele foi o mais parecido entre os disponíveis.
+
+Se nenhum material tiver relação suficiente com a pergunta, o sistema pode reconhecer que não encontrou uma fonte adequada.
+
+EXEMPLO:
+Imagine que uma base de conhecimento possui conteúdos sobre:
+
+- férias;
+- benefícios;
+- horários;
+- estacionamento.
+
+O usuário pergunta:
+
+"Que horas eu preciso chegar ao trabalho?"
+
+O retrieval compara essa pergunta com os conteúdos disponíveis e identifica que o conteúdo sobre horários é o mais relacionado.
+
+Esse conteúdo é recuperado e pode ser entregue ao modelo de linguagem como contexto para formular a resposta.
+
+Agora imagine que o usuário pergunte:
+
+"Qual é a previsão do tempo para amanhã?"
+
+A base não possui informações sobre previsão do tempo.
+
+Mesmo assim, matematicamente algum dos conteúdos disponíveis sempre poderia aparecer como o mais semelhante entre eles.
+
+Por exemplo, o conteúdo sobre horários poderia acabar sendo o resultado com maior pontuação.
+
+Isso não significa que ele seja relevante para responder à pergunta.
+
+Se a similaridade não atingir o limite definido pelo sistema, o retrieval pode rejeitar esse resultado e considerar que não encontrou informação adequada na base.
+
+RESUMO:
+Retrieval é a etapa do RAG responsável por buscar, selecionar e recuperar na base de conhecimento os conteúdos mais relevantes para a pergunta do usuário.
+
+Ele pode utilizar embeddings e bancos vetoriais como ferramentas, mas não é a mesma coisa que eles.
+
+O retrieval não gera a resposta final.
+
+Além de encontrar os resultados mais semelhantes, o sistema pode utilizar critérios como um limite mínimo de similaridade para evitar recuperar conteúdos que não sejam relevantes o suficiente.
+
+TERMOS RELACIONADOS:
+retrieval, recuperação, recuperação de informação, busca, busca semântica, pesquisa, relevância, similaridade, similaridade semântica, limite de similaridade, threshold, embeddings, banco vetorial, contexto, base de conhecimento, ranking, resultados, RAG.

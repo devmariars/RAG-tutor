@@ -1,0 +1,123 @@
+TÍTULO:
+Quando o RAG não sabe
+
+EXPLICAÇÃO:
+Um sistema RAG nem sempre possui informação suficiente para responder à pergunta do usuário.
+
+Isso pode acontecer por diferentes motivos.
+
+A informação pode não existir na base de conhecimento, os conteúdos disponíveis podem não ser relevantes o suficiente para a pergunta ou o retrieval pode não conseguir recuperar uma informação adequada mesmo que ela exista na base.
+
+Por isso, não encontrar uma resposta e não possuir a informação são situações relacionadas, mas não necessariamente iguais.
+
+Se a informação realmente não existe na base, pode ser necessário adicionar ou atualizar conteúdos.
+
+Se a informação existe, mas não foi recuperada corretamente, o problema pode estar no retrieval, nos embeddings, no chunking, nos critérios de similaridade ou em outra parte da recuperação.
+
+Encontrar o conteúdo mais parecido com uma pergunta também não significa necessariamente encontrar uma resposta correta.
+
+Mesmo quando nenhuma informação da base realmente responde à pergunta, o sistema de busca ainda pode identificar algum conteúdo como o mais semelhante entre os disponíveis.
+
+Por isso, o RAG precisa de critérios para decidir quando uma informação recuperada é relevante o suficiente para ser utilizada.
+
+Um desses critérios pode ser um limite mínimo de similaridade, também chamado de threshold.
+
+Se nenhum conteúdo atingir esse limite, o sistema pode considerar que não encontrou informação suficiente.
+
+Quando isso acontece, o comportamento mais seguro é reconhecer a limitação em vez de utilizar um conteúdo inadequado ou inventar uma informação.
+
+Em um sistema configurado para responder somente com base em uma fonte específica, a LLM também não deve completar a resposta utilizando livremente seu conhecimento geral quando a informação não estiver sustentada pelo contexto recuperado.
+
+Mesmo que uma LLM possua conhecimento sobre determinado assunto, o objetivo desse tipo de RAG pode ser justamente garantir que as respostas sejam fundamentadas na base definida.
+
+Existem também situações em que o problema não é falta de conhecimento, mas falta de clareza na pergunta.
+
+Uma pergunta muito vaga, ambígua ou incompleta pode não fornecer informação suficiente para o sistema entender o que deve procurar.
+
+Nesse caso, em vez de assumir uma interpretação, o sistema pode pedir esclarecimento ao usuário.
+
+Por exemplo:
+
+"Você poderia explicar melhor o que deseja saber?"
+
+ou:
+
+"Você está perguntando sobre X ou sobre Y?"
+
+A pergunta não respondida também pode ser registrada para análise posterior.
+
+Isso permite identificar dúvidas frequentes que ainda não são cobertas pela base de conhecimento, problemas recorrentes de recuperação e oportunidades de melhorar o sistema.
+
+Em situações importantes, duvidosas, conflitantes ou que exigem julgamento humano, o sistema também pode encaminhar o caso para revisão humana.
+
+Portanto, reconhecer que não possui informação suficiente não representa necessariamente uma falha.
+
+Em muitos casos, admitir a limitação é um comportamento esperado e mais confiável do que produzir uma resposta sem sustentação adequada.
+
+EXPLICAÇÃO SIMPLES:
+Imagine um bibliotecário procurando uma resposta em uma biblioteca.
+
+Você pergunta sobre culinária, mas a biblioteca possui apenas livros sobre tecnologia.
+
+Mesmo assim, algum livro será o "mais parecido" entre os disponíveis.
+
+Isso não significa que ele contém a resposta.
+
+Um bom RAG precisa saber dizer:
+
+"Não encontrei informação suficiente na minha base de conhecimento para responder essa pergunta."
+
+Agora imagine outra situação.
+
+A biblioteca possui um livro sobre o assunto, mas o bibliotecário procurou na seção errada e não conseguiu encontrá-lo.
+
+Nesse caso, a informação existe, mas a busca falhou.
+
+Existe ainda uma terceira possibilidade:
+
+você fez uma pergunta tão vaga que o bibliotecário não sabe exatamente o que deve procurar.
+
+Nesse caso, ele pode pedir que você explique melhor a pergunta.
+
+O importante é que o sistema não escolha qualquer informação apenas para conseguir responder.
+
+Às vezes, dizer "não encontrei" ou pedir esclarecimento é a resposta mais adequada.
+
+EXEMPLO:
+Imagine um RAG cuja base possui apenas conteúdos sobre RAG e inteligência artificial.
+
+O usuário pergunta:
+
+"Qual é a capital da Austrália?"
+
+O sistema pode comparar essa pergunta com todos os conteúdos disponíveis e encontrar algum arquivo com a maior similaridade.
+
+Porém, nenhum desses conteúdos realmente contém a resposta.
+
+Se a similaridade não atingir o limite definido pelo sistema, o RAG pode responder:
+
+"Não encontrei informação suficiente na minha base de conhecimento para responder essa pergunta."
+
+Mesmo que a LLM utilizada pelo sistema saiba responder essa pergunta por conhecimento geral, um RAG configurado para utilizar somente a base não deveria apresentar essa informação como se tivesse sido encontrada nela.
+
+Agora imagine que o usuário pergunte apenas:
+
+"E isso?"
+
+Sem contexto suficiente, o sistema pode não saber ao que a palavra "isso" se refere.
+
+Nesse caso, pode ser mais adequado pedir esclarecimento do que tentar adivinhar a intenção.
+
+As perguntas não respondidas também podem ser registradas para que uma pessoa responsável avalie posteriormente se existe um problema na recuperação ou se aquele assunto deveria ser adicionado à base.
+
+RESUMO:
+Quando o RAG não encontra informação suficientemente relevante na base, ele deve reconhecer essa limitação e evitar inventar uma resposta.
+
+A falta de resposta pode acontecer porque a informação não existe na base, porque o retrieval não conseguiu encontrá-la ou porque a pergunta é ambígua ou insuficiente.
+
+Um sistema pode utilizar limites de similaridade, pedir esclarecimentos, registrar perguntas não respondidas ou encaminhar casos para revisão humana.
+
+Em sistemas restritos à base de conhecimento, a LLM não deve substituir a ausência de evidência utilizando livremente conhecimento externo.
+
+TERMOS RELACIONADOS:
+não encontrado, sem resposta, informação insuficiente, ausência de informação, pergunta ambígua, esclarecimento, threshold, limite de similaridade, similaridade, retrieval, recuperação, relevância, pergunta não respondida, alucinação, conhecimento externo, revisão humana, HITL, fallback, base de conhecimento, RAG.

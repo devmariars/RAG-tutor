@@ -1,0 +1,131 @@
+TÍTULO:
+Erros em RAG
+
+EXPLICAÇÃO:
+Um sistema RAG pode apresentar erros em diferentes etapas do seu funcionamento.
+
+Identificar em qual etapa o problema aconteceu ajuda a descobrir o que precisa ser corrigido.
+
+Uma resposta final incorreta não significa automaticamente que a LLM errou. O problema pode ter começado antes da geração, por exemplo na base de conhecimento, no chunking, nos embeddings ou no retrieval.
+
+Por isso, o diagnóstico deve observar as diferentes etapas do fluxo separadamente.
+
+Dois tipos importantes de problema são os erros de retrieval e os erros de geração.
+
+Um erro de retrieval acontece quando o sistema recupera informações inadequadas, pouco relevantes ou insuficientes para responder à pergunta.
+
+Nesse caso, o problema ocorre antes da geração da resposta.
+
+A LLM pode receber um contexto ruim e, como consequência, produzir uma resposta inadequada mesmo que esteja utilizando corretamente aquilo que recebeu.
+
+Problemas de retrieval podem estar relacionados à base de conhecimento, aos chunks, aos embeddings, à forma como a busca é realizada ou aos critérios utilizados para selecionar os conteúdos relevantes.
+
+Por exemplo, um chunk pode estar mal dividido, a informação necessária pode estar ausente da base, o embedding pode não representar adequadamente a relação esperada ou o limite de similaridade pode estar configurado de maneira inadequada.
+
+Um erro de geração acontece quando o sistema recupera informações adequadas, mas a LLM utiliza esse contexto de maneira incorreta, ignora informações importantes, interpreta mal o conteúdo ou formula uma resposta inadequada.
+
+Nesse caso, o retrieval funcionou, mas houve um problema na etapa responsável por gerar a resposta.
+
+Também podem existir erros na própria base de conhecimento.
+
+Se a base contém uma informação incorreta, desatualizada ou contraditória, o retrieval pode recuperar corretamente esse conteúdo e a LLM pode utilizá-lo corretamente, mas a resposta final ainda assim estará errada.
+
+Nesse caso, o problema está na fonte de conhecimento, e não necessariamente no retrieval ou na geração.
+
+Além disso, podem existir problemas técnicos ou de integração, como indisponibilidade da API, limite de requisições, falhas de conexão, credenciais inválidas, erros na aplicação ou outros problemas nos serviços utilizados pelo sistema.
+
+Por isso, ao investigar um problema em um RAG, é importante observar separadamente:
+
+- qual foi a pergunta recebida;
+- quais conteúdos foram recuperados;
+- qual foi a relevância desses conteúdos;
+- qual contexto foi enviado para a LLM;
+- quais instruções foram fornecidas;
+- qual resposta foi gerada;
+- se ocorreu alguma falha técnica durante o processo.
+
+Logs, resultados intermediários e testes podem ajudar a descobrir em qual etapa o comportamento começou a ficar diferente do esperado.
+
+Corrigir um RAG sem identificar a origem do problema pode levar a alterações na parte errada do sistema.
+
+Por exemplo, modificar o prompt da LLM não resolve necessariamente um problema causado por retrieval inadequado.
+
+Da mesma forma, alterar embeddings ou chunks não resolve um problema que acontece somente na formulação da resposta pela LLM.
+
+Por isso, diagnosticar antes de corrigir é uma parte importante do desenvolvimento e da manutenção de sistemas RAG.
+
+EXPLICAÇÃO SIMPLES:
+Imagine novamente um bibliotecário e uma pessoa que escreve a resposta.
+
+Se o bibliotecário entrega o livro errado, temos um problema de retrieval.
+
+Se o bibliotecário entrega o livro certo, mas a pessoa lê aquilo e escreve uma resposta errada, temos um problema de geração.
+
+Mas existe outra possibilidade:
+
+o bibliotecário encontra exatamente o livro correto e a pessoa explica corretamente aquilo que está escrito, mas o próprio livro contém uma informação errada ou antiga.
+
+Nesse caso, o problema está na base de conhecimento.
+
+Também pode acontecer de nenhum deles ser o problema.
+
+Por exemplo, o serviço usado para gerar a resposta pode estar temporariamente fora do ar.
+
+Por isso, quando uma resposta dá errado, não devemos culpar automaticamente a LLM.
+
+Primeiro precisamos descobrir em qual parte do caminho o erro começou.
+
+EXEMPLO:
+O usuário pergunta:
+
+"O que é embedding?"
+
+Situação 1:
+
+O retrieval recupera um conteúdo sobre banco vetorial.
+
+A informação recuperada não é a adequada para responder à pergunta.
+
+Isso indica um possível problema de retrieval.
+
+Situação 2:
+
+O retrieval recupera corretamente o conteúdo sobre embeddings, mas a LLM responde que embedding é um banco de dados.
+
+Nesse caso, o contexto estava adequado, mas a resposta gerada estava incorreta.
+
+Isso indica um possível problema na etapa de geração.
+
+Situação 3:
+
+O retrieval recupera corretamente um documento da base que afirma incorretamente que embedding é um banco de dados.
+
+A LLM responde de acordo com esse documento.
+
+Nesse caso, retrieval e geração podem ter funcionado conforme esperado, mas a informação armazenada na base estava errada.
+
+Isso indica um problema na base de conhecimento.
+
+Situação 4:
+
+O retrieval encontra corretamente o conteúdo sobre embeddings, mas o serviço da LLM está indisponível ou atingiu seu limite de requisições.
+
+Nesse caso, o problema não está no conteúdo recuperado.
+
+A aplicação precisa tratar a indisponibilidade da camada de geração, por exemplo utilizando uma estratégia de fallback previamente definida.
+
+RESUMO:
+Erros em RAG podem acontecer em diferentes etapas.
+
+Se o conteúdo recuperado estiver inadequado, o problema pode estar no retrieval.
+
+Se o contexto estiver correto e a resposta gerada estiver inadequada, o problema pode estar na geração.
+
+Se o conteúdo recuperado estiver correto em relação à base, mas a própria fonte contiver informação incorreta ou desatualizada, o problema pode estar na base de conhecimento.
+
+Também podem ocorrer falhas técnicas, como indisponibilidade de API, limites de requisição ou problemas de integração.
+
+Por isso, uma resposta errada não deve ser atribuída automaticamente à LLM. O sistema deve ser diagnosticado etapa por etapa para identificar a origem do problema.
+
+TERMOS RELACIONADOS:
+erro de retrieval, erro de recuperação, erro de geração, erro de base, retrieval, geração, contexto, LLM, embeddings, chunks, chunking, base de conhecimento, API, indisponibilidade, limite de requisições, integração, fallback, logs, testes, diagnóstico, depuração, debugging, RAG.

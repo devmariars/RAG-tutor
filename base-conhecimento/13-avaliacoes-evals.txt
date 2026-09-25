@@ -1,0 +1,149 @@
+TÍTULO:
+Avaliações (Evals)
+
+EXPLICAÇÃO:
+Evals são avaliações utilizadas para medir e testar a qualidade e o comportamento de um sistema de inteligência artificial.
+
+Em vez de concluir que um sistema funciona apenas porque algumas perguntas foram respondidas corretamente, as evals permitem testar o comportamento de maneira mais organizada e repetível.
+
+Em um sistema RAG, é importante avaliar separadamente diferentes partes do fluxo, principalmente o retrieval e a geração.
+
+A avaliação do retrieval verifica se o sistema está recuperando conteúdos corretos e relevantes para as perguntas dos usuários.
+
+Por exemplo, se alguém pergunta sobre embeddings, podemos verificar se os conteúdos recuperados realmente tratam de embeddings, se os resultados mais relevantes apareceram e se informações importantes ficaram de fora.
+
+Também é possível avaliar situações em que o sistema deveria reconhecer que não encontrou conteúdo suficiente.
+
+Nesse caso, uma boa avaliação não verifica apenas se algum resultado foi recuperado, mas se o sistema evitou utilizar conteúdos inadequados para responder.
+
+A avaliação da geração verifica se a LLM utilizou corretamente o contexto recuperado para formular a resposta.
+
+Podemos observar, por exemplo:
+
+- se a resposta está de acordo com o contexto;
+- se realmente responde à pergunta do usuário;
+- se informações importantes foram consideradas;
+- se a resposta evita inventar informações não sustentadas pelas fontes;
+- se o sistema reconhece limitações quando o contexto é insuficiente.
+
+Separar retrieval e geração ajuda a descobrir onde está o problema.
+
+Se o conteúdo recuperado estiver errado, melhorar apenas o prompt da LLM pode não resolver o problema.
+
+Da mesma forma, se o retrieval estiver funcionando corretamente, mas a resposta final estiver inadequada, pode ser necessário investigar a etapa de geração.
+
+As evals podem utilizar conjuntos de perguntas de teste, conteúdos esperados, respostas esperadas e critérios definidos previamente.
+
+Esses critérios representam o comportamento considerado adequado para cada teste.
+
+Nem toda avaliação precisa exigir uma resposta escrita exatamente da mesma maneira.
+
+Dependendo do objetivo, pode ser mais importante verificar se a resposta contém as informações necessárias, utiliza corretamente as fontes e respeita as regras definidas para o sistema.
+
+As avaliações podem ser automáticas, humanas ou combinar as duas abordagens.
+
+Testes automáticos podem ajudar a executar muitos casos de maneira repetível.
+
+A revisão humana pode ser importante quando a qualidade depende de interpretação, clareza, utilidade ou outros critérios que não são facilmente avaliados apenas por regras automáticas.
+
+Um conjunto de evals também pode incluir diferentes tipos de pergunta, como:
+
+- perguntas que possuem resposta clara na base;
+- perguntas formuladas com palavras diferentes das usadas nos documentos;
+- perguntas ambíguas;
+- perguntas cuja informação não existe na base;
+- perguntas que testam limites ou comportamentos importantes do sistema.
+
+As mesmas avaliações podem ser executadas novamente depois de mudanças no RAG.
+
+Isso permite comparar o comportamento anterior com o novo e verificar se uma alteração realmente melhorou o sistema.
+
+Também ajuda a identificar regressões.
+
+Uma regressão acontece quando uma mudança melhora ou corrige determinada parte do sistema, mas faz com que algo que funcionava anteriormente passe a funcionar pior ou deixe de funcionar.
+
+Por isso, evals não servem apenas para encontrar erros.
+
+Elas também ajudam a acompanhar a evolução do sistema e verificar se mudanças mantêm os comportamentos importantes já conquistados.
+
+EXPLICAÇÃO SIMPLES:
+Imagine que queremos testar um aluno que responde perguntas usando uma biblioteca.
+
+Podemos avaliar duas coisas separadamente.
+
+Primeiro:
+
+"Ele encontrou o material certo para responder?"
+
+Isso avalia o retrieval.
+
+Depois:
+
+"Usando o material certo, ele respondeu corretamente?"
+
+Isso avalia a geração.
+
+Também podemos testar:
+
+"Quando a biblioteca não possui a resposta, ele admite que não encontrou ou inventa alguma coisa?"
+
+Em vez de fazer algumas perguntas aleatórias e concluir:
+
+"Parece que está funcionando."
+
+criamos uma lista organizada de testes e definimos o que esperamos que aconteça em cada situação.
+
+Depois, se mudarmos alguma coisa no sistema, podemos executar os mesmos testes novamente.
+
+Assim conseguimos descobrir se a mudança realmente melhorou o RAG ou se consertou uma coisa e acabou quebrando outra.
+
+EXEMPLO:
+Imagine que queremos testar o RAG com algumas perguntas.
+
+Teste 1:
+
+Pergunta:
+"O que é embedding?"
+
+Esperamos que o retrieval recupere conteúdos relacionados a embeddings.
+
+Se ele recuperar principalmente um conteúdo sobre segurança em RAG, existe um possível problema na recuperação.
+
+Agora imagine que o retrieval recuperou corretamente o conteúdo sobre embeddings.
+
+A LLM recebe esse contexto, mas responde:
+
+"Embedding é um banco vetorial."
+
+Nesse caso, o retrieval funcionou, mas a geração apresentou um problema.
+
+Teste 2:
+
+Pergunta:
+"Qual é a capital da Austrália?"
+
+A base contém apenas informações sobre RAG.
+
+Nesse caso, podemos esperar que o sistema reconheça que não possui informação suficiente na base.
+
+Se ele recuperar qualquer conteúdo e tentar responder mesmo assim, o teste pode indicar um problema no comportamento esperado.
+
+Depois de alterar embeddings, threshold, chunks, prompts ou outras partes do sistema, esses mesmos testes podem ser executados novamente.
+
+Se a pergunta sobre embeddings passar a funcionar melhor, mas a pergunta fora da base passar a receber uma resposta inventada, a alteração resolveu um problema e criou outro.
+
+As evals ajudam a perceber esse tipo de regressão.
+
+RESUMO:
+Evals são avaliações organizadas e repetíveis utilizadas para medir a qualidade e o comportamento de um sistema.
+
+Em RAG, retrieval e geração podem ser avaliados separadamente para identificar onde os problemas acontecem.
+
+As evals podem incluir perguntas com resposta, perguntas fora da base, casos ambíguos e outros comportamentos importantes.
+
+Elas podem ser automáticas, humanas ou combinar as duas abordagens.
+
+Repetir as mesmas avaliações depois de mudanças ajuda a verificar se o sistema realmente melhorou e a identificar regressões.
+
+TERMOS RELACIONADOS:
+evals, avaliações, testes, qualidade, critérios, métricas, retrieval, recuperação, geração, LLM, contexto, resposta esperada, comportamento esperado, perguntas de teste, conjunto de testes, revisão humana, avaliação automática, regressão, desempenho, comparação, RAG.

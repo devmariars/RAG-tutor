@@ -1,0 +1,142 @@
+TÍTULO:
+Versionamento e metadados
+
+EXPLICAÇÃO:
+Versionamento é o controle das diferentes versões de um conteúdo ao longo do tempo.
+
+Em uma base de conhecimento, documentos podem ser atualizados, substituídos ou corrigidos.
+
+Se versões antigas e novas permanecerem disponíveis sem controle, o sistema RAG pode recuperar uma informação desatualizada e utilizá-la como se ainda estivesse válida.
+
+Por isso, o versionamento ajuda a identificar qual versão de um conteúdo está vigente, quais versões são antigas e quando determinadas alterações aconteceram.
+
+Uma versão antiga não precisa necessariamente ser apagada.
+
+Dependendo das necessidades do sistema, ela pode continuar armazenada para histórico, auditoria ou rastreabilidade, desde que esteja claramente identificada e não seja utilizada como conteúdo atual quando isso não for apropriado.
+
+Metadados são informações adicionais que descrevem um conteúdo.
+
+Eles não precisam fazer parte diretamente do texto principal do documento.
+
+Podem armazenar informações como:
+
+- nome da fonte;
+- identificação do documento;
+- data de criação;
+- data de atualização;
+- número da versão;
+- categoria;
+- autor;
+- departamento responsável;
+- status do documento;
+- permissões ou outras informações úteis para organização.
+
+Por exemplo, um documento pode conter no texto principal as regras de férias e possuir metadados indicando:
+
+Fonte: Manual de Recursos Humanos
+Versão: 3
+Atualizado em: 2026
+Departamento: Recursos Humanos
+Status: atual
+
+Essas informações ajudam o sistema a saber mais sobre o conteúdo sem precisar tratá-las como parte principal da explicação.
+
+Os metadados podem ser associados a documentos ou chunks, dependendo da arquitetura utilizada.
+
+Isso permite manter informações sobre a origem de um trecho mesmo depois que um documento maior foi dividido em partes menores.
+
+Metadados podem ajudar na organização, filtragem, rastreabilidade e recuperação das informações.
+
+Por exemplo, antes ou durante uma busca, o sistema pode utilizar metadados para considerar apenas documentos com status atual, conteúdos de determinado departamento ou informações que o usuário possui autorização para consultar.
+
+Eles também podem ajudar a identificar a fonte de uma resposta.
+
+Se o retrieval recuperar determinado chunk, os metadados associados podem indicar de qual documento aquele trecho veio, qual versão foi utilizada e quando o conteúdo foi atualizado.
+
+Isso melhora a rastreabilidade do sistema e facilita a investigação de respostas incorretas ou desatualizadas.
+
+Versionamento e metadados são conceitos relacionados, mas não são a mesma coisa.
+
+Versionamento controla as mudanças e diferentes versões de um conteúdo.
+
+Metadados descrevem características e informações adicionais sobre esse conteúdo.
+
+Os dois podem trabalhar juntos para ajudar o RAG a utilizar fontes adequadas e manter uma base de conhecimento organizada.
+
+EXPLICAÇÃO SIMPLES:
+Imagine que uma empresa possui uma regra de férias criada em 2024.
+
+Em 2026, essa regra muda.
+
+Se o RAG guardar as duas versões sem saber qual é a atual, ele pode encontrar a regra antiga e responder com uma informação desatualizada.
+
+O versionamento funciona como colocar etiquetas:
+
+"Versão 1 — antiga."
+
+"Versão 2 — atual."
+
+A versão antiga pode continuar guardada como histórico, mas o sistema sabe que ela não representa mais a regra vigente.
+
+Já os metadados são como informações escritas na etiqueta do documento:
+
+"Fonte: Recursos Humanos."
+
+"Atualizado em: 2026."
+
+"Versão: 2."
+
+"Status: atual."
+
+Assim, o sistema consegue saber mais sobre o conteúdo além do que está escrito dentro dele.
+
+Essas etiquetas também ajudam a descobrir depois de onde uma informação veio.
+
+EXEMPLO:
+Imagine dois documentos na base:
+
+Documento 1:
+Política de férias
+Versão: 1
+Data: 2024
+Status: antiga
+Departamento: Recursos Humanos
+
+Documento 2:
+Política de férias
+Versão: 2
+Data: 2026
+Status: atual
+Departamento: Recursos Humanos
+
+O usuário pergunta:
+
+"Como funcionam as férias?"
+
+Sem controle de versões, o sistema poderia recuperar o documento antigo e utilizar uma regra que já não está vigente.
+
+Com versionamento e metadados adequados, a aplicação pode considerar o status dos documentos e utilizar a versão atual.
+
+A versão de 2024 ainda pode permanecer armazenada para histórico, mas não precisa participar da recuperação destinada a responder sobre a regra vigente.
+
+Agora imagine que o documento atual seja dividido em vários chunks.
+
+Cada chunk pode manter metadados indicando que veio da:
+
+"Política de férias — versão 2 — Recursos Humanos."
+
+Assim, mesmo recuperando apenas uma pequena parte do documento, o sistema ainda pode saber qual é a origem daquele conteúdo.
+
+Esses metadados também podem permitir que a aplicação mostre ao usuário qual fonte foi utilizada na resposta ou ajude uma equipe a investigar posteriormente por que determinada informação foi recuperada.
+
+RESUMO:
+Versionamento controla as diferentes versões dos conteúdos da base e ajuda a identificar quais informações estão vigentes ou antigas.
+
+Metadados são informações adicionais sobre documentos ou chunks, como fonte, data, versão, categoria, departamento e status.
+
+Versões antigas podem ser mantidas para histórico desde que sejam corretamente identificadas e controladas.
+
+Metadados podem ajudar na organização, filtragem, recuperação e rastreabilidade, permitindo identificar de onde uma informação veio e qual versão foi utilizada pelo sistema.
+
+TERMOS RELACIONADOS:
+versionamento, versão, histórico, metadados, metadata, fonte, origem, data, atualização, documento, chunk, status, categoria, autor, departamento, rastreabilidade, auditoria, filtro, conteúdo desatualizado, base de conhecimento, retrieval, RAG.

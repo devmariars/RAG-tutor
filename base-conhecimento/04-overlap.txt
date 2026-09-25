@@ -1,0 +1,99 @@
+TÍTULO:
+Overlap
+
+EXPLICAÇÃO:
+Overlap é a repetição intencional de uma pequena parte do conteúdo entre chunks consecutivos.
+
+Quando um documento é dividido em chunks, uma informação importante pode começar no final de um chunk e continuar no início do próximo.
+
+Se a divisão acontecer exatamente entre essas partes, o contexto pode ficar incompleto.
+
+O overlap reduz esse problema fazendo com que uma parte do final de um chunk também apareça no início do chunk seguinte.
+
+Assim, informações que estão próximas da divisão entre dois chunks têm mais chance de permanecer acompanhadas do contexto necessário para serem compreendidas e recuperadas corretamente.
+
+O overlap funciona como uma pequena área compartilhada entre dois chunks.
+
+Ele não cria uma nova informação. Ele apenas repete uma parte do conteúdo já existente para preservar continuidade.
+
+Overlap não é necessariamente obrigatório em todos os sistemas RAG.
+
+A necessidade e a quantidade de overlap dependem do tipo de conteúdo, da forma como os chunks foram criados e da estratégia de recuperação usada.
+
+Quando os chunks já seguem divisões naturais, como seções bem separadas, pode ser necessário menos overlap.
+
+Quando existe risco de uma ideia ser cortada no meio, o overlap pode ser mais útil.
+
+Também não existe uma quantidade única de overlap que seja ideal para todos os casos.
+
+Pouco overlap pode não ser suficiente para preservar o contexto.
+
+Overlap demais pode repetir grandes partes do texto, gerar conteúdo redundante e aumentar desnecessariamente a quantidade de informação armazenada e processada.
+
+Essa repetição também pode fazer com que partes muito parecidas apareçam várias vezes entre os resultados recuperados.
+
+Por isso, assim como o tamanho dos chunks, a quantidade de overlap deve buscar equilíbrio entre preservar contexto e evitar redundância excessiva.
+
+EXPLICAÇÃO SIMPLES:
+Imagine que você cortou uma história em vários pedaços.
+
+O primeiro pedaço termina assim:
+
+"Maria abriu a porta porque..."
+
+E o próximo começa apenas com:
+
+"...ouviu um barulho."
+
+Separadas, essas partes podem perder um pouco do sentido.
+
+Com overlap, algumas palavras do final do primeiro pedaço são repetidas no começo do próximo.
+
+É como deixar uma pequena ponte entre dois chunks para que o contexto não seja perdido durante o corte.
+
+Essa ponte não acrescenta uma informação nova. Ela apenas repete um pouco da informação anterior.
+
+Também não adianta fazer uma ponte enorme.
+
+Se muita coisa for repetida, os chunks ficam redundantes.
+
+O objetivo é repetir apenas o suficiente para preservar o sentido quando necessário.
+
+EXEMPLO:
+Imagine este texto:
+
+"O funcionário pode solicitar férias após cumprir o período necessário. O pedido deve ser enviado ao setor responsável com antecedência."
+
+Ao dividir esse conteúdo, o sistema poderia criar:
+
+Chunk 1:
+"O funcionário pode solicitar férias após cumprir o período necessário. O pedido deve ser enviado..."
+
+Chunk 2:
+"O pedido deve ser enviado ao setor responsável com antecedência."
+
+A parte:
+
+"O pedido deve ser enviado"
+
+aparece nos dois chunks.
+
+Essa repetição é o overlap.
+
+Agora imagine que quase todo o Chunk 1 fosse repetido no Chunk 2.
+
+Nesse caso, o sistema teria muito conteúdo duplicado sem necessidade.
+
+Por outro lado, se não houvesse nenhuma repetição e a divisão separasse duas partes importantes de uma mesma ideia, o contexto poderia ser prejudicado.
+
+Por isso, overlap deve ser usado na quantidade necessária para ajudar a preservar continuidade sem criar redundância excessiva.
+
+RESUMO:
+Overlap é a repetição de uma pequena parte do conteúdo entre chunks consecutivos para ajudar a preservar o contexto durante a divisão de um texto.
+
+Ele não cria novas informações e não é necessariamente obrigatório em todos os sistemas.
+
+Overlap insuficiente pode deixar informações separadas, enquanto overlap excessivo pode gerar redundância e processamento desnecessário.
+
+TERMOS RELACIONADOS:
+overlap, sobreposição, repetição entre chunks, contexto, chunk, chunks, chunking, divisão de texto, continuidade, redundância, recuperação, retrieval, RAG.

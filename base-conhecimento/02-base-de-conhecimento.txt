@@ -1,0 +1,70 @@
+TÍTULO:
+Base de conhecimento
+
+EXPLICAÇÃO:
+A base de conhecimento é o conjunto de informações que o sistema RAG pode consultar para responder às perguntas dos usuários.
+
+Ela pode ser formada por diferentes tipos de conteúdo, como documentos, arquivos de texto, manuais, políticas internas, artigos, perguntas frequentes, páginas, relatórios ou outros materiais relevantes para o objetivo do sistema.
+
+Esses conteúdos podem vir de arquivos como TXT, PDF, documentos de texto ou outras fontes, desde que o sistema consiga processar e organizar as informações para consulta.
+
+A base de conhecimento não é necessariamente um banco de dados tradicional. Ela é o conjunto de conteúdos que servem como fonte para o RAG. Dependendo da arquitetura, esses conteúdos podem ser armazenados e organizados de diferentes formas.
+
+No fluxo de um RAG, a base de conhecimento funciona como a fonte onde o sistema procura informações relacionadas à pergunta do usuário.
+
+Ter uma base de conhecimento não significa que a inteligência artificial aprendeu, decorou ou memorizou permanentemente esses conteúdos. As informações continuam armazenadas externamente e são recuperadas quando necessário.
+
+Isso significa que a base pode ser atualizada sem precisar treinar novamente o modelo de linguagem. Se um documento for corrigido ou substituído, o sistema pode passar a consultar a nova versão desse conteúdo.
+
+A qualidade da base influencia diretamente a qualidade do sistema.
+
+Se uma informação estiver ausente, incorreta, incompleta ou desatualizada, o RAG pode não conseguir encontrar uma resposta adequada ou pode recuperar uma informação inadequada.
+
+Por isso, uma boa base de conhecimento deve conter informações relevantes, confiáveis, atualizadas e adequadas ao assunto que o RAG pretende responder.
+
+Quanto melhor estiver organizada e preparada a base, maiores são as chances de o retrieval encontrar conteúdos realmente úteis para a pergunta do usuário.
+
+EXPLICAÇÃO SIMPLES:
+Imagine que o RAG é um aluno fazendo uma atividade com consulta.
+
+A base de conhecimento é todo o material que está disponível para ele consultar: livros, apostilas, anotações, manuais e documentos.
+
+Esses materiais não precisam estar decorados pelo aluno.
+
+Quando surge uma pergunta, ele procura nos materiais a informação que pode ajudar na resposta.
+
+Se algum material for atualizado, basta trocar ou corrigir esse conteúdo. O aluno não precisa reaprender tudo do zero.
+
+Se a informação não estiver nesses materiais, estiver errada ou estiver desatualizada, o RAG não deveria fingir que encontrou uma resposta correta.
+
+EXEMPLO:
+Imagine um RAG criado para responder dúvidas de funcionários de uma empresa.
+
+A base de conhecimento poderia conter:
+
+- manual dos funcionários;
+- política de férias;
+- regras de benefícios;
+- procedimentos internos;
+- documentos com perguntas frequentes;
+- comunicados oficiais da empresa.
+
+Se um funcionário perguntar:
+
+"Quantos dias de férias eu tenho?"
+
+o sistema procura essa informação dentro da base de conhecimento e recupera o conteúdo mais relacionado à pergunta.
+
+Se a base não possuir nenhuma informação sobre férias, o sistema não terá uma fonte adequada para responder essa dúvida.
+
+Se a política de férias for atualizada, o documento da base pode ser substituído pela versão nova sem precisar treinar novamente a inteligência artificial.
+
+RESUMO:
+A base de conhecimento é o conjunto de informações externas que o RAG consulta para encontrar conteúdo relevante antes de gerar uma resposta.
+
+Ela pode ser formada por diferentes tipos de documentos e não significa que a IA tenha memorizado esses conteúdos.
+
+A base pode ser atualizada sem retreinar o modelo, e sua qualidade influencia diretamente a qualidade das respostas do sistema.
+
+TERMOS RELACIONADOS:
+base de conhecimento, documentos, fontes, arquivos, TXT, PDF, informações, conhecimento externo, dados, conteúdo, RAG, retrieval, recuperação, contexto, atualização, qualidade da informação, armazenamento.

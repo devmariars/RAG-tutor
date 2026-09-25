@@ -1,0 +1,3308 @@
+/* =========================================================
+   RAG TUTOR — INTERFACE ORBITAL
+   1. Tema
+   2. Cabeçalho
+   3. Sistema orbital
+   4. Cards / planetas
+   5. Núcleo
+   6. Chat flutuante
+   7. Destaques
+   8. Responsividade
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+
+/* =========================================================
+   1. TEMA
+========================================================= */
+
+:root {
+    --fundo: #c7a690;
+    --fundo-claro: #fffdfb;
+
+    --vinho: #48183e;
+    --berry: #9f4f78;
+    --coral: #ee786f;
+
+    --lilas: #d6b5ec;
+    --verde: #9cded1;
+    --amarelo: #f1c85c;
+    --pesego: #f2ac98;
+    --rosa: #edaab9;
+
+    --texto: #352335;
+    --texto-suave: #80677c;
+
+    --serifa: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', Arial, sans-serif;
+
+    /* Movimento orbital */
+    --tempo-orbita: 28s;
+
+    /* Tamanho da elipse */
+    --orbita-x: clamp(290px, 30vw, 430px);
+    --orbita-y: clamp(135px, 24vh, 185px);
+}
+
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    position: relative;
+
+    width: 100%;
+    min-height: 100svh;
+
+    margin: 0;
+
+    overflow-x: hidden;
+
+    background:
+        radial-gradient(
+            circle at 8% 12%,
+            rgba(214, 181, 236, .28),
+            transparent 20%
+        ),
+        radial-gradient(
+            circle at 91% 21%,
+            rgba(238, 120, 111, .14),
+            transparent 22%
+        ),
+        radial-gradient(
+            circle at 70% 82%,
+            rgba(156, 222, 209, .16),
+            transparent 24%
+        ),
+        var(--fundo);
+
+    color: var(--texto);
+    font-family: var(--sans);
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+button,
+input {
+    font: inherit;
+}
+
+
+button {
+    color: inherit;
+}
+
+
+.svg-defs {
+    position: absolute;
+}
+
+
+/* Decorações suaves do fundo */
+
+body::before,
+body::after {
+    position: fixed;
+    z-index: -1;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    content: '';
+}
+
+
+body::before {
+    top: -80px;
+    left: -65px;
+
+    width: 180px;
+    height: 180px;
+
+    background: rgba(210, 174, 231, .34);
+
+    filter: blur(3px);
+}
+
+
+body::after {
+    right: -65px;
+    bottom: -80px;
+
+    width: 190px;
+    height: 190px;
+
+    background: rgba(242, 172, 152, .24);
+
+    filter: blur(3px);
+}
+
+
+/* =========================================================
+   2. CABEÇALHO
+========================================================= */
+
+.cabecalho {
+    position: relative;
+    z-index: 20;
+
+    height: clamp(155px, 23svh, 215px);
+
+    padding: 30px 6vw 0;
+}
+
+
+/* Logo */
+
+.logo-rag {
+    position: absolute;
+
+    top: 28px;
+    left: 6vw;
+
+    font-family: var(--serifa);
+    font-size: clamp(21px, 2vw, 30px);
+    font-weight: 700;
+
+    letter-spacing: -.04em;
+}
+
+
+.logo-rag::after {
+    position: absolute;
+
+    left: 0;
+    bottom: -9px;
+
+    width: 42px;
+    height: 2px;
+
+    border-radius: 999px;
+
+    background: var(--coral);
+
+    content: '';
+}
+
+
+/* Menu superior */
+
+.menu-topo {
+    position: absolute;
+
+    top: 28px;
+    right: 6vw;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+/* Botão PERGUNTAR */
+
+.menu-topo a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 132px;
+    height: 42px;
+
+    padding: 0 22px;
+
+    border: 1px solid rgba(159, 79, 120, .18);
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a8567d,
+            #824064
+        );
+
+    color: white;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: .18em;
+
+    box-shadow:
+        0 8px 18px rgba(92, 44, 76, .14),
+        0 0 22px rgba(185, 108, 215, .12);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+
+.menu-topo a:hover {
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #b46086,
+            #8d486d
+        );
+
+    box-shadow:
+        0 10px 24px rgba(92, 44, 76, .18),
+        0 0 28px rgba(185, 108, 215, .18);
+}
+
+
+.estrela-menu {
+    color: var(--coral);
+
+    font-size: 25px;
+}
+
+
+/* Título principal */
+
+.hero-texto {
+    position: absolute;
+
+    left: 50%;
+    bottom: 5px;
+
+    width: min(88%, 850px);
+
+    text-align: center;
+
+    transform: translateX(-50%);
+}
+
+
+.hero-texto h1 {
+    margin: 0;
+
+    color: var(--vinho);
+
+    font-family: var(--serifa);
+    font-size: clamp(31px, 3.25vw, 52px);
+    font-weight: 700;
+
+    line-height: .98;
+    letter-spacing: -.055em;
+}
+
+
+.titulo-destaque {
+    position: relative;
+
+    display: block;
+
+    width: max-content;
+    max-width: 100%;
+
+    margin: 2px auto 0;
+}
+
+
+.titulo-destaque::before {
+    position: absolute;
+    z-index: -1;
+
+    right: -9px;
+    bottom: 2px;
+    left: -9px;
+
+    height: 36%;
+
+    border-radius: 60% 28% 55% 35%;
+
+    background: rgba(238, 120, 111, .23);
+
+    transform: rotate(-1deg);
+
+    content: '';
+}
+
+
+.hero-texto p {
+    margin: 13px auto 0;
+
+    color: var(--texto-suave);
+
+    font-size: clamp(11px, 1vw, 15px);
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   3. SISTEMA ORBITAL
+========================================================= */
+
+main {
+    position: relative;
+
+    height:
+        calc(
+            100svh - clamp(155px, 23svh, 215px)
+        );
+
+    min-height: 430px;
+}
+
+
+.mapa-rag {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+
+/* Área central */
+
+.sistema-orbital {
+    position: absolute;
+
+    top: 48%;
+    left: 50%;
+
+    width: min(96vw, 1120px);
+    height: min(72vh, 680px);
+
+    transform: translate(-50%, -50%);
+
+    pointer-events: none;
+}
+
+
+.sistema-orbital .conceito,
+.sistema-orbital .nucleo-rag {
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   LINHAS ORBITAIS
+========================================================= */
+
+.orbita-visual {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+/* Lilás neon */
+
+.orbita-visual-1 {
+    width: min(74vw, 940px);
+    height: min(34vh, 330px);
+
+    border:
+        1.5px solid
+        rgba(181, 120, 255, .68);
+
+    box-shadow:
+        0 0 8px rgba(181, 120, 255, .32),
+        0 0 20px rgba(181, 120, 255, .22);
+
+    transform:
+        translate(-50%, -50%)
+        rotate(-9deg);
+}
+
+
+/* Coral neon */
+
+.orbita-visual-2 {
+    width: min(90vw, 1140px);
+    height: min(48vh, 460px);
+
+    border:
+        1.5px dashed
+        rgba(255, 116, 108, .62);
+
+    box-shadow:
+        0 0 8px rgba(255, 116, 108, .25),
+        0 0 22px rgba(255, 116, 108, .15);
+
+    transform:
+        translate(-50%, -50%)
+        rotate(8deg);
+}
+
+
+/* Verde neon */
+
+.orbita-visual-3 {
+    width: min(56vw, 700px);
+    height: min(58vh, 520px);
+
+    border:
+        1.5px dashed
+        rgba(62, 222, 190, .58);
+
+    box-shadow:
+        0 0 8px rgba(62, 222, 190, .24),
+        0 0 20px rgba(62, 222, 190, .14);
+
+    transform:
+        translate(-50%, -50%)
+        rotate(22deg);
+}
+
+
+/* Estrelas decorativas */
+
+.estrelas-decorativas {
+    position: absolute;
+
+    inset: 0;
+
+    color: rgba(168, 103, 143, .42);
+
+    pointer-events: none;
+}
+
+
+.estrelas-decorativas span {
+    position: absolute;
+
+    font-size: clamp(11px, 1.3vw, 20px);
+
+    text-shadow:
+        0 0 10px currentColor;
+}
+
+
+.estrelas-decorativas span:nth-child(1) {
+    top: 16%;
+    left: 14%;
+}
+
+
+.estrelas-decorativas span:nth-child(2) {
+    top: 27%;
+    right: 14%;
+}
+
+
+.estrelas-decorativas span:nth-child(3) {
+    bottom: 18%;
+    left: 22%;
+}
+
+
+.estrelas-decorativas span:nth-child(4) {
+    right: 28%;
+    bottom: 14%;
+
+    color: rgba(255, 132, 122, .55);
+}
+
+
+.estrelas-decorativas span:nth-child(5) {
+    top: 48%;
+    left: 50%;
+
+    color: rgba(248, 215, 133, .55);
+}
+
+
+/* =========================================================
+   4. PLANETAS / CARDS
+========================================================= */
+
+/*
+   Cada .planeta percorre a elipse.
+   O card continua reto durante todo o movimento.
+*/
+
+.planeta {
+    position: absolute;
+    z-index: 4;
+
+    top: 50%;
+    left: 50%;
+
+    width: 0;
+    height: 0;
+
+    animation: none;
+}
+
+
+/* Posições iniciais igualmente distribuídas */
+
+.planeta-1 {
+    --atraso: 0s;
+}
+
+
+.planeta-2 {
+    --atraso: -4.66s;
+}
+
+
+.planeta-3 {
+    --atraso: -9.33s;
+}
+
+
+.planeta-4 {
+    --atraso: -14s;
+}
+
+
+.planeta-5 {
+    --atraso: -18.66s;
+}
+
+
+.planeta-6 {
+    --atraso: -23.33s;
+}
+
+
+/* Card */
+
+.conceito {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: clamp(112px, 9vw, 148px);
+    min-height: clamp(120px, 10vw, 158px);
+
+    padding: 18px 13px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, .86);
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, .90),
+            var(--card)
+        );
+
+    box-shadow:
+        0 14px 28px rgba(79, 38, 70, .10),
+        0 0 30px var(--glow);
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transform:
+        translate(-50%, -50%);
+
+    transition:
+        box-shadow .25s ease,
+        filter .25s ease;
+}
+
+
+/* Glow atrás */
+
+.conceito::before {
+    position: absolute;
+    z-index: -1;
+
+    inset: 14%;
+
+    border-radius: 28px;
+
+    background: var(--glow);
+
+    filter: blur(22px);
+
+    opacity: .95;
+
+    transform:
+        translateY(17px)
+        scale(1.22);
+
+    content: '';
+}
+
+
+.conceito:hover {
+    box-shadow:
+        0 18px 35px rgba(79, 38, 70, .13),
+        0 0 52px var(--glow);
+
+    filter: brightness(1.05);
+}
+
+
+/* Cores individuais */
+
+.conceito-pratica {
+    --card: #eee0f8;
+    --glow: rgba(183, 119, 225, .48);
+    --accent: #a35bc6;
+}
+
+
+.conceito-base {
+    --card: #ffe3dc;
+    --glow: rgba(243, 143, 118, .47);
+    --accent: #e65f59;
+}
+
+
+.conceito-embedding {
+    --card: #ead8fb;
+    --glow: rgba(164, 92, 231, .52);
+    --accent: #873ed0;
+}
+
+
+.conceito-retrieval {
+    --card: #d9f4ee;
+    --glow: rgba(69, 190, 164, .48);
+    --accent: #159e89;
+}
+
+
+.conceito-llm {
+    --card: #fff0c9;
+    --glow: rgba(241, 196, 72, .50);
+    --accent: #dd9c00;
+}
+
+
+.conceito-prompt {
+    --card: #ffe1e7;
+    --glow: rgba(234, 102, 122, .47);
+    --accent: #db596b;
+}
+
+
+/* Conteúdo */
+
+.icone-conceito {
+    width: 31px;
+    height: 31px;
+
+    margin-bottom: 9px;
+
+    color: var(--accent);
+}
+
+
+.icone-conceito svg {
+    width: 100%;
+    height: 100%;
+}
+
+
+.conceito h2 {
+    margin: 0 0 6px;
+
+    color: var(--vinho);
+
+    font-family: var(--serifa);
+    font-size: clamp(13px, 1.05vw, 17px);
+
+    line-height: 1.05;
+    letter-spacing: -.035em;
+}
+
+
+.conceito p {
+    margin: 0;
+
+    color: #5f4c5e;
+
+    font-size: clamp(8px, .72vw, 11px);
+    line-height: 1.35;
+}
+
+
+/* Movimento elíptico */
+
+@keyframes orbitar-elipse {
+
+    0% {
+        transform:
+            translate(
+                var(--orbita-x),
+                0
+            )
+            scale(.96);
+    }
+
+    12.5% {
+        transform:
+            translate(
+                calc(var(--orbita-x) * .707),
+                calc(var(--orbita-y) * .707)
+            )
+            scale(1.02);
+    }
+
+    25% {
+        transform:
+            translate(
+                0,
+                var(--orbita-y)
+            )
+            scale(1.08);
+    }
+
+    37.5% {
+        transform:
+            translate(
+                calc(var(--orbita-x) * -.707),
+                calc(var(--orbita-y) * .707)
+            )
+            scale(1.02);
+    }
+
+    50% {
+        transform:
+            translate(
+                calc(var(--orbita-x) * -1),
+                0
+            )
+            scale(.96);
+    }
+
+    62.5% {
+        transform:
+            translate(
+                calc(var(--orbita-x) * -.707),
+                calc(var(--orbita-y) * -.707)
+            )
+            scale(.90);
+    }
+
+    75% {
+        transform:
+            translate(
+                0,
+                calc(var(--orbita-y) * -1)
+            )
+            scale(.86);
+    }
+
+    87.5% {
+        transform:
+            translate(
+                calc(var(--orbita-x) * .707),
+                calc(var(--orbita-y) * -.707)
+            )
+            scale(.90);
+    }
+
+    100% {
+        transform:
+            translate(
+                var(--orbita-x),
+                0
+            )
+            scale(.96);
+    }
+}
+
+
+/* =========================================================
+   5. NÚCLEO CENTRAL
+========================================================= */
+
+.nucleo-rag {
+    position: absolute;
+    z-index: 8;
+
+    top: 50%;
+    left: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: clamp(180px, 22vmin, 270px);
+
+    aspect-ratio: 1;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, .95);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 28% 18%,
+            rgba(255, 255, 255, .98),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 25% 77%,
+            rgba(229, 193, 244, .66),
+            transparent 47%
+        ),
+        radial-gradient(
+            circle at 78% 74%,
+            rgba(162, 229, 215, .62),
+            transparent 45%
+        ),
+        radial-gradient(
+            circle at 72% 24%,
+            #ffdad4,
+            #fff8f5 68%
+        );
+
+    box-shadow:
+        inset 5px 7px 18px rgba(255, 255, 255, .95),
+        inset -8px -10px 25px rgba(229, 171, 190, .18),
+        0 18px 35px rgba(117, 63, 93, .18),
+        0 0 55px rgba(205, 159, 235, .34),
+        0 0 100px rgba(238, 120, 111, .14);
+
+    transform:
+        translate(-50%, -50%);
+}
+
+
+.nucleo-rag::before {
+    position: absolute;
+
+    top: 12%;
+    left: 18%;
+
+    width: 30%;
+    height: 9%;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, .80);
+
+    filter: blur(4px);
+
+    transform: rotate(-28deg);
+
+    content: '';
+}
+
+
+.nome-rag {
+    color: var(--vinho);
+
+    font-family: var(--serifa);
+    font-size: clamp(48px, 6vmin, 76px);
+    font-weight: 600;
+
+    line-height: .9;
+    letter-spacing: -.04em;
+}
+
+
+.nome-tutor {
+    margin-top: 6px;
+
+    color: var(--vinho);
+
+    font-size: clamp(9px, 1vmin, 12px);
+    font-weight: 700;
+
+    letter-spacing: .52em;
+    text-indent: .52em;
+}
+
+
+.nucleo-rag p {
+    margin: 13px 0 0;
+
+    color: var(--texto-suave);
+
+    font-size: clamp(7px, .7vmin, 9px);
+    font-weight: 600;
+
+    letter-spacing: .12em;
+}
+
+
+/* Anotações */
+
+.anotacao {
+    position: absolute;
+    z-index: 10;
+
+    margin: 0;
+
+    color:
+        rgba(72, 24, 62, .63);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    line-height: 1.7;
+    letter-spacing: .22em;
+
+    pointer-events: none;
+}
+
+
+.anotacao span {
+    display: block;
+}
+
+
+.anotacao-conhecimento {
+    left: 6vw;
+    bottom: 17%;
+}
+
+
+.anotacao-aprenda {
+    right: 6vw;
+    bottom: 15%;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   6. CHAT FLUTUANTE
+========================================================= */
+
+/* Botão do chatbot */
+
+.botao-chat {
+    position: fixed;
+    z-index: 80;
+
+    right: 28px;
+    bottom: 26px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    min-height: 62px;
+
+    padding:
+        7px 17px 7px 8px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, .8);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 250, 247, .94);
+
+    box-shadow:
+        0 14px 35px rgba(72, 24, 62, .15),
+        0 0 35px rgba(170, 105, 211, .25);
+
+    color: var(--vinho);
+
+    cursor: pointer;
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        opacity .25s ease;
+}
+
+
+.botao-chat:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 18px 38px rgba(72, 24, 62, .18),
+        0 0 45px rgba(170, 105, 211, .33);
+}
+
+
+.botao-chat-brilho {
+    position: absolute;
+    z-index: -1;
+
+    inset: 6px;
+
+    border-radius: inherit;
+
+    box-shadow:
+        0 0 26px rgba(238, 120, 111, .24);
+}
+
+
+.robo-botao {
+    width: 49px;
+    height: 49px;
+
+    padding: 7px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e4c5f1,
+            #f1adb9
+        );
+
+    color: var(--vinho);
+
+    box-shadow:
+        0 0 20px rgba(184, 112, 218, .32);
+}
+
+
+.botao-chat-texto {
+    display: flex;
+    flex-direction: column;
+
+    color: var(--texto-suave);
+
+    font-size: 10px;
+    line-height: 1.2;
+
+    text-align: left;
+}
+
+
+.botao-chat-texto strong {
+    margin-top: 2px;
+
+    color: var(--vinho);
+
+    font-family: var(--serifa);
+    font-size: 15px;
+}
+
+
+/* Painel lateral */
+
+.painel-chat {
+    position: fixed;
+    z-index: 110;
+
+    right: 26px;
+    bottom: 26px;
+
+    display: flex;
+    flex-direction: column;
+
+    width:
+        min(
+            390px,
+            calc(100vw - 42px)
+        );
+
+    height:
+        min(
+            640px,
+            calc(100svh - 52px)
+        );
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, .85);
+
+    border-radius: 28px;
+
+    background:
+        rgba(255, 252, 250, .98);
+
+    box-shadow:
+        0 30px 70px rgba(72, 24, 62, .20),
+        0 0 45px rgba(186, 124, 218, .17);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform:
+        translateY(24px)
+        scale(.97);
+
+    transform-origin: bottom right;
+
+    transition:
+        opacity .28s ease,
+        visibility .28s ease,
+        transform .28s ease;
+}
+
+
+.painel-chat.aberto,
+body.chat-aberto .painel-chat {
+    opacity: 1;
+    visibility: visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+body.chat-aberto .botao-chat {
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* Cabeçalho do chat */
+
+.cabecalho-chat {
+    flex: none;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-height: 78px;
+
+    padding: 14px 16px;
+
+    background:
+        linear-gradient(
+            115deg,
+            #4a193f,
+            #754066
+        );
+
+    color: white;
+}
+
+
+.avatar-chat {
+    display: grid;
+    place-items: center;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e7c8f5,
+            #efaeba
+        );
+
+    color: var(--vinho);
+}
+
+
+.avatar-chat svg {
+    width: 34px;
+    height: 34px;
+}
+
+
+.identidade-chat {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.identidade-chat strong {
+    font-family: var(--serifa);
+    font-size: 20px;
+}
+
+
+.identidade-chat span {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 10px;
+
+    opacity: .85;
+}
+
+
+.identidade-chat i {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #89dec0;
+
+    box-shadow:
+        0 0 8px #89dec0;
+}
+
+
+.fechar-chat {
+    margin-left: auto;
+
+    width: 36px;
+    height: 36px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, .10);
+
+    color: white;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+
+/* Histórico */
+
+.area-resposta {
+    flex: 1;
+
+    min-height: 0;
+
+    padding: 18px 15px;
+
+    overflow-y: auto;
+}
+
+
+.historico-chat {
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+.historico-chat:empty::before {
+    display: block;
+
+    max-width: 84%;
+
+    padding: 13px 15px;
+
+    border-radius:
+        8px 18px 18px 18px;
+
+    background: #f4eafa;
+
+    color: #574252;
+
+    font-size: 12px;
+    line-height: 1.5;
+
+    content:
+        'Oi! Sou o RAG Tutor. Pergunte algo sobre RAG e eu consultarei minha base de conhecimento.';
+}
+
+
+/* Mensagens */
+
+.mensagem-chat {
+    display: flex;
+    flex-direction: column;
+
+    max-width: 86%;
+
+    animation:
+        mensagem-entrando .22s ease;
+}
+
+
+.mensagem-usuario {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+
+.mensagem-rag {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
+
+.autor-mensagem {
+    margin:
+        0 7px 4px;
+
+    color: var(--texto-suave);
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+}
+
+
+.conteudo-mensagem {
+    margin: 0;
+
+    padding: 12px 14px;
+
+    font-size: 11px;
+    line-height: 1.55;
+
+    white-space: pre-wrap;
+}
+
+
+.mensagem-usuario .conteudo-mensagem {
+    border-radius:
+        18px 6px 18px 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a8567d,
+            #7f3d66
+        );
+
+    color: white;
+}
+
+
+.mensagem-rag .conteudo-mensagem {
+    border:
+        1px solid #eadbec;
+
+    border-radius:
+        6px 18px 18px 18px;
+
+    background: #f8f1fa;
+
+    color: #4b3948;
+}
+
+
+.fontes-mensagem {
+    margin:
+        5px 7px 0;
+
+    color: #987f93;
+
+    font-size: 8px;
+    line-height: 1.35;
+}
+
+
+@keyframes mensagem-entrando {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* Campo do chat */
+
+#form-pergunta {
+    flex: none;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin:
+        0 13px 13px;
+
+    padding: 6px;
+
+    border:
+        1px solid #ebd6de;
+
+    border-radius: 18px;
+
+    background: white;
+
+    box-shadow:
+        0 8px 20px
+        rgba(87, 48, 77, .08);
+}
+
+
+.campo-pergunta {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+#pergunta {
+    width: 100%;
+    height: 43px;
+
+    padding: 0 10px;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    color: var(--vinho);
+
+    font-size: 11px;
+}
+
+
+#pergunta::placeholder {
+    color: #a18d9d;
+}
+
+
+#pergunta:disabled {
+    opacity: .65;
+}
+
+
+.enviar-pergunta {
+    flex: none;
+
+    display: grid;
+    place-items: center;
+
+    width: 43px;
+    height: 43px;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a75079,
+            #7d3c65
+        );
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+.enviar-pergunta svg {
+    width: 19px;
+    height: 19px;
+}
+
+
+/* Fundo atrás do chat */
+
+.overlay-chat {
+    position: fixed;
+    z-index: 100;
+
+    inset: 0;
+
+    background:
+        rgba(72, 24, 62, .035);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease;
+}
+
+
+body.chat-aberto .overlay-chat,
+.overlay-chat.aberto {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =========================================================
+   7. DESTAQUES
+========================================================= */
+
+.destaque-menu {
+    box-shadow:
+        0 0 0 5px rgba(255, 225, 117, .28),
+        0 0 36px rgba(248, 203, 66, .78) !important;
+
+    animation:
+        pulso-amarelo
+        .7s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+
+.menu-topo a.destaque-menu {
+    box-shadow:
+        0 0 0 5px rgba(255, 225, 117, .25),
+        0 0 34px rgba(248, 203, 66, .70) !important;
+}
+
+
+.nucleo-rag.destaque-menu,
+.conceito.destaque-menu,
+.botao-chat.destaque-menu,
+.painel-chat.destaque-menu,
+#form-pergunta.destaque-menu {
+    outline:
+        2px solid
+        rgba(255, 216, 69, .50);
+
+    outline-offset: 4px;
+}
+
+
+@keyframes pulso-amarelo {
+
+    from {
+        filter:
+            brightness(1);
+    }
+
+    to {
+        filter:
+            brightness(1.08);
+    }
+}
+
+
+/* =========================================================
+   8. RESPONSIVIDADE
+========================================================= */
+
+
+/* Tablet + mobile */
+
+@media (max-width: 760px) {
+
+    :root {
+        --orbita-x:
+            clamp(125px, 36vw, 145px);
+
+        --orbita-y:
+            clamp(118px, 34vw, 145px);
+    }
+
+
+    body {
+        min-height: 100svh;
+
+        overflow-x: hidden;
+    }
+
+
+    /* Cabeçalho */
+
+    .cabecalho {
+        height: 220px;
+
+        padding:
+            20px 18px 0;
+    }
+
+
+    .logo-rag {
+        top: 20px;
+        left: 18px;
+
+        font-size: 22px;
+    }
+
+
+    /* PERGUNTAR continua no topo direito */
+
+    .menu-topo {
+        top: 18px;
+        right: 18px;
+        left: auto;
+
+        width: auto;
+
+        transform: none;
+    }
+
+
+    .menu-topo a {
+        min-width: 112px;
+        height: 38px;
+
+        padding: 0 17px;
+
+        font-size: 8px;
+    }
+
+
+    .estrela-menu {
+        display: none;
+    }
+
+
+    /* Título */
+
+    .hero-texto {
+        top: 92px;
+        bottom: auto;
+
+        width:
+            calc(100% - 32px);
+    }
+
+
+    .hero-texto h1 {
+        font-size:
+            clamp(27px, 8.2vw, 35px);
+
+        line-height: .96;
+    }
+
+
+    .hero-texto p {
+        max-width: 315px;
+
+        margin-top: 11px;
+
+        font-size: 9px;
+        line-height: 1.45;
+    }
+
+
+    /* Área orbital */
+
+    main {
+        height:
+            calc(100svh - 220px);
+
+        min-height: 455px;
+    }
+
+
+    .mapa-rag {
+        height: 100%;
+
+        overflow: hidden;
+    }
+
+
+    .sistema-orbital {
+        top: 47%;
+        left: 50%;
+
+        width: 100%;
+        height: 430px;
+    }
+
+
+    /* Cards */
+
+    .conceito {
+        width: 92px;
+        min-height: 112px;
+
+        padding:
+            12px 8px;
+
+        border-radius: 17px;
+    }
+
+
+    .icone-conceito {
+        width: 24px;
+        height: 24px;
+
+        margin-bottom: 6px;
+    }
+
+
+    .conceito h2 {
+        font-size: 10px;
+    }
+
+
+    .conceito p {
+        font-size: 6.8px;
+        line-height: 1.25;
+    }
+
+
+    /* Núcleo */
+
+    .nucleo-rag {
+        width: 150px;
+    }
+
+
+    .nome-rag {
+        font-size: 42px;
+    }
+
+
+    .nome-tutor {
+        font-size: 7px;
+    }
+
+
+    .nucleo-rag p {
+        margin-top: 8px;
+
+        font-size: 5.6px;
+    }
+
+
+    /* Linhas orbitais */
+
+    .orbita-visual-1 {
+        width: 98%;
+        height: 43%;
+    }
+
+
+    .orbita-visual-2 {
+        width: 125%;
+        height: 62%;
+    }
+
+
+    .orbita-visual-3 {
+        width: 72%;
+        height: 76%;
+    }
+
+
+    .anotacao {
+        display: none;
+    }
+
+
+    /* Botão flutuante vira só mascote */
+
+    .botao-chat {
+        right: 16px;
+        bottom: 16px;
+
+        min-height: 58px;
+
+        padding: 5px;
+
+        border-radius: 50%;
+    }
+
+
+    .robo-botao {
+        width: 50px;
+        height: 50px;
+    }
+
+
+    .botao-chat-texto {
+        display: none;
+    }
+
+
+    /* Chat quase fullscreen */
+
+    .painel-chat {
+        right: 10px;
+        bottom: 10px;
+
+        width:
+            calc(100vw - 20px);
+
+        height:
+            calc(100svh - 20px);
+
+        max-width: none;
+
+        border-radius: 24px;
+    }
+
+
+    .overlay-chat {
+        background:
+            rgba(72, 24, 62, .20);
+    }
+
+
+    .cabecalho-chat {
+        min-height: 72px;
+    }
+
+
+    .area-resposta {
+        padding:
+            16px 12px;
+    }
+
+
+    .mensagem-chat {
+        max-width: 88%;
+    }
+}
+
+
+/* Celulares estreitos */
+
+@media (max-width: 390px) {
+
+    :root {
+        --orbita-x: 126px;
+        --orbita-y: 108px;
+    }
+
+
+    .menu-topo a {
+        min-width: 98px;
+        height: 36px;
+
+        padding: 0 13px;
+
+        font-size: 7px;
+    }
+
+
+    .conceito {
+        width: 82px;
+        min-height: 96px;
+
+        padding:
+            10px 7px;
+    }
+
+
+    .conceito h2 {
+        font-size: 9px;
+    }
+
+
+    .conceito p {
+        font-size: 6.3px;
+    }
+
+
+    .icone-conceito {
+        width: 20px;
+        height: 20px;
+    }
+
+
+    .nucleo-rag {
+        width: 132px;
+    }
+
+
+    .nome-rag {
+        font-size: 37px;
+    }
+}
+
+
+/* Notebooks baixos */
+
+@media (min-width: 761px) and (max-height: 700px) {
+
+    :root {
+        --orbita-x:
+            clamp(250px, 29vw, 370px);
+
+        --orbita-y:
+            clamp(115px, 20vh, 145px);
+    }
+
+
+    .cabecalho {
+        height: 165px;
+    }
+
+
+    main {
+        height:
+            calc(100svh - 165px);
+
+        min-height: 370px;
+    }
+
+
+    .hero-texto h1 {
+        font-size:
+            clamp(29px, 3vw, 42px);
+    }
+
+
+    .nucleo-rag {
+        width:
+            clamp(165px, 22vmin, 195px);
+    }
+
+
+    .conceito {
+        width:
+            clamp(105px, 8.3vw, 128px);
+
+        min-height:
+            clamp(112px, 9vw, 138px);
+    }
+}
+
+
+/* Acessibilidade */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior:
+            auto !important;
+
+        transition-duration:
+            .01ms !important;
+    }
+
+
+    .planeta {
+        animation-play-state:
+            paused !important;
+    }
+}
+
+/* =========================================================
+   SISTEMA SoRAG — PINTURA A ÓLEO CELESTIAL
+   Camada visual final.
+   IMPORTANTE: a órbita dos .planeta continua 100% no JS.
+========================================================= */
+
+:root {
+    --sorag-ceu-1: #172b31;
+    --sorag-ceu-2: #29454a;
+    --sorag-ceu-3: #53676a;
+    --sorag-creme: #f2dfbd;
+    --sorag-champagne: #d8b97d;
+    --sorag-ouro: #b79253;
+    --sorag-rosa: #b87878;
+    --sorag-pessego: #cf8e72;
+    --sorag-tinta: #f8ead1;
+}
+
+/* ---------- FUNDO: TELA A ÓLEO CELESTIAL ---------- */
+
+body {
+    background:
+        radial-gradient(ellipse at 16% 18%,
+            rgba(194, 128, 111, .30) 0%,
+            rgba(126, 95, 92, .17) 18%,
+            transparent 43%),
+        radial-gradient(ellipse at 80% 22%,
+            rgba(225, 188, 132, .21) 0%,
+            rgba(151, 126, 92, .10) 21%,
+            transparent 46%),
+        radial-gradient(ellipse at 72% 82%,
+            rgba(86, 135, 133, .31) 0%,
+            rgba(43, 83, 86, .14) 24%,
+            transparent 49%),
+        radial-gradient(ellipse at 24% 78%,
+            rgba(108, 137, 142, .28) 0%,
+            transparent 43%),
+        linear-gradient(145deg,
+            #16292f 0%,
+            #274147 34%,
+            #40585b 57%,
+            #263f43 78%,
+            #172c32 100%);
+
+    background-size:
+        155% 155%,
+        145% 145%,
+        155% 155%,
+        150% 150%,
+        100% 100%;
+
+    color: var(--sorag-tinta);
+
+    animation: sorag-pintura-respira 46s ease-in-out infinite alternate;
+}
+
+/* Véus de tinta: formas grandes, sem aparência de "estrelinhas". */
+body::before {
+    top: -22vh;
+    left: -16vw;
+    width: 72vw;
+    height: 72vw;
+    max-width: 980px;
+    max-height: 980px;
+
+    background:
+        radial-gradient(ellipse at 44% 45%,
+            rgba(220, 157, 126, .24) 0%,
+            rgba(196, 128, 113, .11) 27%,
+            transparent 66%);
+
+    filter: blur(52px);
+    opacity: .78;
+
+    animation: sorag-veu-1 39s ease-in-out infinite alternate;
+}
+
+body::after {
+    right: -18vw;
+    bottom: -28vh;
+    width: 78vw;
+    height: 78vw;
+    max-width: 1040px;
+    max-height: 1040px;
+
+    background:
+        radial-gradient(ellipse at 50% 50%,
+            rgba(221, 184, 121, .18) 0%,
+            rgba(83, 132, 130, .14) 35%,
+            transparent 69%);
+
+    filter: blur(64px);
+    opacity: .82;
+
+    animation: sorag-veu-2 51s ease-in-out infinite alternate;
+}
+
+@keyframes sorag-pintura-respira {
+    0% {
+        background-position: 0% 5%, 100% 0%, 100% 100%, 0% 100%, center;
+    }
+    100% {
+        background-position: 18% 14%, 83% 17%, 78% 79%, 17% 84%, center;
+    }
+}
+
+@keyframes sorag-veu-1 {
+    from { transform: translate3d(-5vw, -2vh, 0) scale(1) rotate(-3deg); }
+    to   { transform: translate3d(15vw, 12vh, 0) scale(1.16) rotate(4deg); }
+}
+
+@keyframes sorag-veu-2 {
+    from { transform: translate3d(4vw, 5vh, 0) scale(1.02) rotate(2deg); }
+    to   { transform: translate3d(-15vw, -12vh, 0) scale(1.17) rotate(-4deg); }
+}
+
+/* ---------- CABEÇALHO ---------- */
+
+.logo-rag,
+.hero-texto h1 {
+    color: #f1dfc2;
+    text-shadow: 0 2px 18px rgba(9, 21, 25, .28);
+}
+
+.logo-rag::after {
+    background: linear-gradient(90deg, #c58b72, #d7b36e);
+}
+
+.hero-texto p {
+    color: rgba(240, 225, 201, .76);
+}
+
+.menu-topo a {
+    border: 1px solid rgba(239, 213, 170, .34);
+    background:
+        linear-gradient(145deg,
+            rgba(187, 125, 106, .90),
+            rgba(115, 77, 75, .92));
+    color: #fff3dd;
+    box-shadow:
+        0 8px 22px rgba(6, 18, 21, .18),
+        inset 0 1px 0 rgba(255, 241, 218, .25);
+}
+
+.menu-topo a:hover {
+    background:
+        linear-gradient(145deg,
+            rgba(202, 143, 117, .95),
+            rgba(130, 88, 82, .95));
+}
+
+/* ---------- CAMPO CELESTIAL ---------- */
+
+.mapa-rag {
+    isolation: isolate;
+}
+
+/* Névoa quente central, como tinta iluminada por trás do Sol. */
+.mapa-rag::before {
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    width: min(82vw, 980px);
+    height: min(62vh, 560px);
+    border-radius: 50%;
+    content: "";
+    pointer-events: none;
+
+    background:
+        radial-gradient(ellipse at center,
+            rgba(229, 190, 126, .13) 0%,
+            rgba(220, 151, 121, .08) 31%,
+            transparent 69%);
+
+    filter: blur(25px);
+    transform: translate(-50%, -50%);
+    animation: sorag-luz-central 13s ease-in-out infinite alternate;
+}
+
+@keyframes sorag-luz-central {
+    from { opacity: .55; }
+    to   { opacity: .95; }
+}
+
+/* ---------- ÓRBITAS: GRAVURA ASTRONÔMICA ANTIGA ---------- */
+
+/*
+   Os 3 elementos já existentes passam a formar um conjunto coerente.
+   ::before e ::after acrescentam órbitas extras sem tocar no HTML.
+*/
+.orbita-visual {
+    display: block !important;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    border: 1px solid rgba(219, 188, 132, .24);
+    background: transparent;
+    box-shadow: none;
+    opacity: 1;
+    pointer-events: none;
+}
+
+.orbita-visual::before,
+.orbita-visual::after {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    content: "";
+    pointer-events: none;
+}
+
+.orbita-visual::before {
+    border: 1px solid rgba(239, 215, 172, .13);
+    transform: scale(.89);
+}
+
+.orbita-visual::after {
+    border: 1px solid rgba(181, 145, 93, .10);
+    transform: scale(1.11);
+}
+
+.orbita-visual-1 {
+    width: min(48vw, 610px);
+    height: min(29vh, 270px);
+    transform: translate(-50%, -50%) rotate(-5deg);
+}
+
+.orbita-visual-2 {
+    width: min(67vw, 850px);
+    height: min(42vh, 385px);
+    transform: translate(-50%, -50%) rotate(4deg);
+    border-color: rgba(226, 197, 145, .20);
+}
+
+.orbita-visual-3 {
+    width: min(83vw, 1040px);
+    height: min(55vh, 500px);
+    transform: translate(-50%, -50%) rotate(-3deg);
+    border-color: rgba(226, 197, 145, .15);
+}
+
+/* Pontos já existentes viram poeira/pigmento luminoso, não padrão de estrelas. */
+.estrelas-decorativas {
+    display: block !important;
+    z-index: 1;
+    opacity: .72;
+    pointer-events: none;
+}
+
+.estrelas-decorativas span {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    font-size: 0;
+    color: transparent;
+    background: rgba(241, 211, 158, .60);
+    box-shadow:
+        0 0 0 3px rgba(239, 203, 147, .05),
+        0 0 13px rgba(238, 197, 132, .28);
+    animation: sorag-pigmento 9s ease-in-out infinite alternate;
+}
+
+.estrelas-decorativas span:nth-child(2n) {
+    width: 3px;
+    height: 3px;
+    background: rgba(217, 166, 145, .58);
+    animation-delay: -3s;
+}
+
+.estrelas-decorativas span:nth-child(3n) {
+    background: rgba(183, 213, 204, .48);
+    animation-delay: -6s;
+}
+
+@keyframes sorag-pigmento {
+    from { opacity: .30; filter: blur(.2px); }
+    to   { opacity: .85; filter: blur(0); }
+}
+
+/* ---------- SISTEMA / MOVIMENTO ---------- */
+
+.sistema-orbital {
+    z-index: 2;
+}
+
+/* NÃO TOCAR: transform é propriedade do JS orbital. */
+.planeta {
+    width: 0;
+    height: 0;
+    animation: none !important;
+}
+
+/* ---------- PLANETAS CIRCULARES ---------- */
+
+.conceito {
+    width: clamp(148px, 13.2vw, 178px);
+    height: clamp(148px, 13.2vw, 178px);
+    min-width: 148px;
+    min-height: 148px;
+    aspect-ratio: 1 / 1;
+
+    padding: 20px 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(249, 226, 190, .42);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    overflow: hidden;
+    text-align: center;
+
+    background:
+        radial-gradient(circle at 29% 22%,
+            rgba(255, 240, 212, .40) 0%,
+            transparent 21%),
+        radial-gradient(circle at 73% 76%,
+            rgba(18, 39, 43, .18) 0%,
+            transparent 45%),
+        radial-gradient(circle at 45% 47%,
+            var(--planet-light) 0%,
+            var(--planet-mid) 53%,
+            var(--planet-dark) 100%);
+
+    box-shadow:
+        inset 7px 8px 18px rgba(255, 238, 207, .13),
+        inset -12px -13px 23px rgba(11, 29, 33, .22),
+        0 13px 24px rgba(7, 21, 24, .25),
+        0 0 25px var(--planet-halo);
+
+    backdrop-filter: none;
+}
+
+/* Pincelada curva no próprio planeta. */
+.conceito::before {
+    position: absolute;
+    inset: 9%;
+    width: auto;
+    height: auto;
+    border-radius: 50%;
+    content: "";
+    opacity: .72;
+    filter: none;
+    pointer-events: none;
+
+    background:
+        linear-gradient(118deg,
+            transparent 12%,
+            rgba(255, 238, 205, .13) 26%,
+            transparent 39%,
+            rgba(38, 58, 58, .09) 53%,
+            transparent 66%,
+            rgba(255, 224, 185, .08) 79%,
+            transparent 90%);
+}
+
+/* Grão/pigmento bem sutil. */
+.conceito::after {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    content: "";
+    pointer-events: none;
+    opacity: .20;
+
+    background:
+        repeating-radial-gradient(
+            ellipse at 37% 41%,
+            rgba(255,255,255,.16) 0 1px,
+            transparent 1px 7px
+        );
+}
+
+.conceito:hover {
+    filter: brightness(1.07) saturate(1.04);
+    box-shadow:
+        inset 7px 8px 18px rgba(255, 238, 207, .16),
+        inset -12px -13px 23px rgba(11, 29, 33, .20),
+        0 16px 29px rgba(7, 21, 24, .27),
+        0 0 34px var(--planet-halo);
+}
+
+/* Tudo permanece acima da textura do planeta. */
+.conceito > * {
+    position: relative;
+    z-index: 2;
+}
+
+.icone-conceito {
+    margin: 0 0 2px;
+    font-size: clamp(18px, 1.8vw, 24px);
+    line-height: 1;
+}
+
+.conceito h2 {
+    margin: 0;
+    max-width: 128px;
+    color: #fff0d5;
+    font-size: clamp(13px, 1.15vw, 16px);
+    line-height: 1.08;
+    letter-spacing: -.02em;
+    text-shadow: 0 1px 8px rgba(18, 31, 32, .34);
+}
+
+.conceito p {
+    margin: 0;
+    max-width: 132px;
+    color: rgba(255, 240, 216, .84);
+    font-size: clamp(8.7px, .72vw, 10.5px);
+    line-height: 1.22;
+    text-wrap: balance;
+}
+
+/* Cada conceito vira um planeta-pintura diferente. */
+.conceito-pratica {
+    --planet-light: #c89086;
+    --planet-mid: #9c6969;
+    --planet-dark: #684d55;
+    --planet-halo: rgba(198, 139, 119, .23);
+    --accent: #e0b28f;
+}
+
+.conceito-base {
+    --planet-light: #d6a179;
+    --planet-mid: #ad765f;
+    --planet-dark: #76534e;
+    --planet-halo: rgba(216, 162, 116, .23);
+    --accent: #e3b989;
+}
+
+.conceito-embedding {
+    --planet-light: #86aaa7;
+    --planet-mid: #587f80;
+    --planet-dark: #3d5e63;
+    --planet-halo: rgba(111, 167, 162, .24);
+    --accent: #b6d3c7;
+}
+
+.conceito-retrieval {
+    --planet-light: #91aa8d;
+    --planet-mid: #647e6d;
+    --planet-dark: #465e58;
+    --planet-halo: rgba(131, 170, 139, .23);
+    --accent: #c4d1a9;
+}
+
+.conceito-llm {
+    --planet-light: #d2b071;
+    --planet-mid: #a78350;
+    --planet-dark: #715f49;
+    --planet-halo: rgba(220, 183, 109, .25);
+    --accent: #ead39a;
+}
+
+.conceito-prompt {
+    --planet-light: #bd8b8f;
+    --planet-mid: #93676f;
+    --planet-dark: #654f5b;
+    --planet-halo: rgba(193, 133, 143, .23);
+    --accent: #deb0ad;
+}
+
+/* ---------- SOL / RAG TUTOR ---------- */
+
+.nucleo-rag {
+    width: clamp(148px, 16vmin, 178px);
+    aspect-ratio: 1 / 1;
+
+    border: 1px solid rgba(255, 232, 186, .72);
+
+    background:
+        radial-gradient(circle at 30% 22%,
+            rgba(255, 249, 224, .90) 0%,
+            rgba(255, 235, 184, .45) 19%,
+            transparent 31%),
+        radial-gradient(circle at 69% 74%,
+            rgba(191, 112, 82, .30) 0%,
+            transparent 43%),
+        radial-gradient(circle at 48% 48%,
+            #f3dca8 0%,
+            #ddb574 45%,
+            #c98c63 74%,
+            #a76b58 100%);
+
+    box-shadow:
+        inset 7px 8px 20px rgba(255, 246, 214, .48),
+        inset -10px -12px 24px rgba(139, 79, 66, .18),
+        0 10px 28px rgba(6, 19, 22, .25),
+        0 0 24px rgba(232, 190, 112, .35),
+        0 0 55px rgba(224, 168, 92, .22),
+        0 0 88px rgba(224, 158, 100, .11);
+
+    animation: sorag-sol-respira 6.5s ease-in-out infinite alternate;
+}
+
+/* Pinceladas solares, sem alterar o círculo. */
+.nucleo-rag::before {
+    background:
+        linear-gradient(120deg,
+            transparent 13%,
+            rgba(255,255,255,.17) 25%,
+            transparent 38%,
+            rgba(171,105,75,.09) 55%,
+            transparent 70%);
+    opacity: .72;
+}
+
+@keyframes sorag-sol-respira {
+    from {
+        box-shadow:
+            inset 7px 8px 20px rgba(255, 246, 214, .48),
+            inset -10px -12px 24px rgba(139, 79, 66, .18),
+            0 10px 28px rgba(6, 19, 22, .25),
+            0 0 23px rgba(232, 190, 112, .31),
+            0 0 50px rgba(224, 168, 92, .18),
+            0 0 82px rgba(224, 158, 100, .09);
+    }
+    to {
+        box-shadow:
+            inset 7px 8px 20px rgba(255, 246, 214, .52),
+            inset -10px -12px 24px rgba(139, 79, 66, .16),
+            0 10px 28px rgba(6, 19, 22, .25),
+            0 0 31px rgba(232, 190, 112, .42),
+            0 0 67px rgba(224, 168, 92, .25),
+            0 0 103px rgba(224, 158, 100, .13);
+    }
+}
+
+.nome-rag,
+.nome-tutor {
+    color: #573941;
+    text-shadow: 0 1px 0 rgba(255, 242, 208, .35);
+}
+
+.nome-rag {
+    font-size: clamp(36px, 4.2vmin, 50px);
+}
+
+.nome-tutor {
+    margin-top: 4px;
+    font-size: clamp(7px, .75vmin, 9px);
+}
+
+.nucleo-rag p {
+    margin-top: 8px;
+    color: rgba(87, 57, 65, .75);
+    font-size: clamp(5.5px, .56vmin, 7px);
+}
+
+/* ---------- ANOTAÇÕES ---------- */
+
+.anotacao {
+    color: rgba(239, 218, 184, .60);
+    text-shadow: 0 1px 9px rgba(7, 20, 23, .30);
+}
+
+/* ---------- CHAT: MESMA LINGUAGEM PICTÓRICA ---------- */
+
+.botao-chat {
+    border: 1px solid rgba(232, 205, 164, .36);
+    background:
+        linear-gradient(145deg,
+            rgba(55, 82, 83, .94),
+            rgba(44, 65, 69, .96));
+    color: #f4e3c7;
+    box-shadow:
+        0 14px 34px rgba(5, 18, 21, .25),
+        inset 0 1px 0 rgba(255, 234, 199, .10);
+}
+
+.robo-botao {
+    background:
+        linear-gradient(145deg,
+            #d3a47e,
+            #a9716d);
+    color: #fff0d8;
+    box-shadow: 0 0 18px rgba(213, 166, 115, .18);
+}
+
+.botao-chat-texto {
+    color: rgba(240, 220, 190, .73);
+}
+
+.botao-chat-texto strong {
+    color: #f6e6ca;
+}
+
+.painel-chat {
+    border: 1px solid rgba(215, 183, 140, .23);
+    background: rgba(242, 232, 215, .985);
+    box-shadow:
+        0 30px 70px rgba(5, 18, 21, .31),
+        0 0 34px rgba(209, 157, 112, .08);
+}
+
+.cabecalho-chat {
+    background:
+        linear-gradient(120deg,
+            #314f51,
+            #795f5d);
+}
+
+.avatar-chat {
+    background:
+        linear-gradient(145deg,
+            #d9b281,
+            #b77b70);
+}
+
+.historico-chat:empty::before {
+    background: #e6ddd0;
+    color: #554b4a;
+}
+
+.mensagem-rag .conteudo-mensagem {
+    border-color: #d8cbbb;
+    background: #eae0d2;
+    color: #4e4544;
+}
+
+.mensagem-usuario .conteudo-mensagem {
+    background:
+        linear-gradient(135deg,
+            #806264,
+            #3f6262);
+}
+
+#form-pergunta {
+    border-color: #d7c7b6;
+    background: #f7eee2;
+}
+
+.enviar-pergunta {
+    background:
+        linear-gradient(135deg,
+            #9b706a,
+            #45696a);
+}
+
+/* ---------- RESPONSIVIDADE ---------- */
+
+@media (max-width: 1000px) {
+    .conceito {
+        width: clamp(138px, 16vw, 160px);
+        height: clamp(138px, 16vw, 160px);
+        min-width: 138px;
+        min-height: 138px;
+        padding: 17px 15px;
+    }
+
+    .conceito h2 {
+        font-size: clamp(12px, 1.5vw, 14px);
+        max-width: 118px;
+    }
+
+    .conceito p {
+        font-size: clamp(8px, .95vw, 9.4px);
+        max-width: 119px;
+    }
+}
+
+@media (max-width: 760px) {
+    .nucleo-rag {
+        width: 122px;
+    }
+
+    .nome-rag {
+        font-size: 32px;
+    }
+
+    .nome-tutor {
+        font-size: 6px;
+    }
+
+    .nucleo-rag p {
+        margin-top: 6px;
+        font-size: 4.8px;
+    }
+
+    .conceito {
+        width: 116px;
+        height: 116px;
+        min-width: 116px;
+        min-height: 116px;
+        padding: 12px 10px;
+        gap: 3px;
+    }
+
+    .icone-conceito {
+        font-size: 16px;
+    }
+
+    .conceito h2 {
+        max-width: 96px;
+        font-size: 10.5px;
+        line-height: 1.04;
+    }
+
+    .conceito p {
+        max-width: 96px;
+        font-size: 7px;
+        line-height: 1.13;
+    }
+
+    .orbita-visual-1 {
+        width: 58%;
+        height: 31%;
+    }
+
+    .orbita-visual-2 {
+        width: 83%;
+        height: 48%;
+    }
+
+    .orbita-visual-3 {
+        width: 106%;
+        height: 67%;
+    }
+
+    body::before,
+    body::after {
+        filter: blur(42px);
+    }
+
+    .mapa-rag::before {
+        width: 112vw;
+        height: 60vh;
+        filter: blur(20px);
+    }
+}
+
+@media (max-width: 390px) {
+    .nucleo-rag {
+        width: 110px;
+    }
+
+    .nome-rag {
+        font-size: 29px;
+    }
+
+    .conceito {
+        width: 106px;
+        height: 106px;
+        min-width: 106px;
+        min-height: 106px;
+        padding: 10px 8px;
+    }
+
+    .icone-conceito {
+        font-size: 14px;
+    }
+
+    .conceito h2 {
+        max-width: 88px;
+        font-size: 9.5px;
+    }
+
+    .conceito p {
+        max-width: 88px;
+        font-size: 6.5px;
+        line-height: 1.1;
+    }
+}
+
+/* Redução de movimento: não interfere no posicionamento orbital do JS. */
+@media (prefers-reduced-motion: reduce) {
+    body,
+    body::before,
+    body::after,
+    .mapa-rag::before,
+    .nucleo-rag,
+    .estrelas-decorativas span {
+        animation: none !important;
+    }
+
+    .planeta {
+        animation: none !important;
+    }
+}
+/* =========================================================
+   AJUSTE FINAL — FUNDO CONTÍNUO + SOL ATRÁS DO TÍTULO
+========================================================= */
+
+/* Remove qualquer fundo próprio da área superior */
+.topo,
+.hero,
+.hero-texto,
+header,
+main,
+.mapa-rag,
+.sistema-orbital {
+    background: transparent !important;
+}
+
+/* Permite que o Sistema SoRAG apareça atrás do título */
+.mapa-rag {
+    overflow: visible !important;
+}
+
+/* Sistema passa por trás do texto */
+.sistema-orbital {
+    z-index: 1;
+}
+
+/* Título e subtítulo permanecem na frente do Sol */
+.hero-texto {
+    position: relative;
+    z-index: 10;
+}
+/* =========================================================
+   CORREÇÃO FINAL — BOTÃO PERGUNTAR + TAMANHO DO CHAT
+========================================================= */
+
+/* O texto continua na frente do Sol,
+   mas não bloqueia cliques fora do próprio conteúdo */
+.hero-texto {
+    position: relative;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Links/botões continuam clicáveis */
+.hero-texto a,
+.menu-topo,
+.menu-topo a {
+    pointer-events: auto;
+}
+
+.menu-topo {
+    position: relative;
+    z-index: 30;
+}
+
+
+/* ---------- CHAT FLUTUANTE NO DESKTOP ---------- */
+
+.painel-chat {
+    position: fixed;
+
+    width: min(390px, calc(100vw - 40px));
+    height: min(560px, calc(100vh - 110px));
+
+    right: 24px;
+    bottom: 24px;
+
+    max-width: 390px;
+    max-height: 560px;
+
+    border-radius: 28px;
+
+    z-index: 1000;
+}
+
+
+/* O histórico ocupa somente o espaço disponível */
+.historico-chat {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 760px) {
+
+    .painel-chat {
+        width: calc(100vw - 24px);
+        height: min(620px, calc(100dvh - 32px));
+
+        right: 12px;
+        bottom: 16px;
+
+        max-width: none;
+        max-height: none;
+
+        border-radius: 24px;
+    }
+}
+/* =========================================================
+   SISTEMA SoRAG — ACABAMENTO FINAL
+   Corrige menu, refina chat, escurece a pintura e ilumina órbitas.
+========================================================= */
+
+/* Fundo um pouco mais profundo, mantendo a pintura a óleo */
+body {
+    background:
+        radial-gradient(ellipse at 15% 17%, rgba(183, 113, 102, .24) 0%, rgba(99, 70, 70, .12) 19%, transparent 43%),
+        radial-gradient(ellipse at 80% 20%, rgba(205, 165, 105, .15) 0%, rgba(120, 101, 76, .08) 22%, transparent 46%),
+        radial-gradient(ellipse at 72% 82%, rgba(52, 113, 112, .25) 0%, rgba(24, 67, 72, .15) 25%, transparent 50%),
+        radial-gradient(ellipse at 25% 78%, rgba(76, 111, 119, .22) 0%, transparent 44%),
+        linear-gradient(145deg, #0d181d 0%, #062329 32%, #18282b 56%, #14282b 78%, #102329 100%);
+    background-size: 155% 155%, 145% 145%, 155% 155%, 150% 150%, 100% 100%;
+}
+
+/* PERGUNTAR volta para o canto superior direito e permanece clicável */
+.menu-topo {
+    position: absolute !important;
+    z-index: 60 !important;
+    top: 28px !important;
+    right: 6vw !important;
+    left: auto !important;
+    width: auto !important;
+    transform: none !important;
+    pointer-events: auto !important;
+}
+
+.menu-topo a {
+    position: relative;
+    z-index: 61;
+    pointer-events: auto !important;
+}
+
+/* Texto fica sobre o Sol, sem criar uma parede invisível para cliques */
+.hero-texto {
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Órbitas mais luminosas: neon elegante, sem estética gamer */
+.orbita-visual {
+    opacity: .92;
+    filter: saturate(1.15);
+}
+
+.orbita-visual-1 {
+    border-color: rgba(101, 231, 216, .62) !important;
+    box-shadow:
+        0 0 5px rgba(101, 231, 216, .34),
+        0 0 15px rgba(101, 231, 216, .13);
+}
+
+.orbita-visual-1::before {
+    border-color: rgba(245, 196, 137, .34) !important;
+    box-shadow: 0 0 7px rgba(245, 196, 137, .10);
+}
+
+.orbita-visual-1::after {
+    border-color: rgba(111, 203, 197, .23) !important;
+}
+
+.orbita-visual-2 {
+    border-color: rgba(244, 170, 142, .52) !important;
+    box-shadow:
+        0 0 5px rgba(244, 170, 142, .27),
+        0 0 16px rgba(244, 170, 142, .10);
+}
+
+.orbita-visual-2::before {
+    border-color: rgba(232, 202, 143, .32) !important;
+}
+
+.orbita-visual-2::after {
+    border-color: rgba(238, 137, 129, .22) !important;
+}
+
+.orbita-visual-3 {
+    border-color: rgba(225, 190, 111, .48) !important;
+    box-shadow:
+        0 0 5px rgba(225, 190, 111, .25),
+        0 0 17px rgba(225, 190, 111, .09);
+}
+
+.orbita-visual-3::before {
+    border-color: rgba(102, 225, 209, .27) !important;
+}
+
+.orbita-visual-3::after {
+    border-color: rgba(232, 177, 148, .20) !important;
+}
+
+/* Um pouco mais de presença nos planetas sem perder o efeito pintado */
+.conceito {
+    border-color: rgba(255, 226, 181, .50);
+    box-shadow:
+        inset 7px 8px 18px rgba(255, 238, 207, .14),
+        inset -12px -13px 23px rgba(6, 21, 25, .27),
+        0 15px 29px rgba(3, 14, 17, .31),
+        0 0 28px var(--planet-halo);
+}
+
+/* Sol levemente mais definido no fundo escuro */
+.nucleo-rag {
+    border-color: rgba(255, 232, 186, .82);
+    box-shadow:
+        inset 7px 8px 20px rgba(255, 246, 214, .50),
+        inset -10px -12px 24px rgba(139, 79, 66, .18),
+        0 12px 30px rgba(4, 15, 18, .30),
+        0 0 28px rgba(239, 198, 119, .42),
+        0 0 64px rgba(224, 168, 92, .25),
+        0 0 100px rgba(224, 158, 100, .12);
+}
+
+/* Chat desktop proporcional e com margem da tela */
+.painel-chat {
+    right: 24px;
+    bottom: 24px;
+    width: min(390px, calc(100vw - 48px));
+    height: min(560px, calc(100dvh - 48px));
+    max-width: 390px;
+    max-height: 560px;
+}
+
+.area-resposta {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.historico-chat {
+    min-height: 0;
+}
+
+/* Mantém o JS como único dono do movimento orbital */
+.planeta {
+    animation: none !important;
+}
+
+@media (max-width: 760px) {
+    .menu-topo {
+        top: 18px !important;
+        right: 18px !important;
+    }
+
+    .painel-chat {
+        right: 12px;
+        bottom: 16px;
+        width: calc(100vw - 24px);
+        height: min(620px, calc(100dvh - 32px));
+        max-width: none;
+        max-height: none;
+        border-radius: 24px;
+    }
+
+    .orbita-visual {
+        opacity: .78;
+    }
+}
+.anotacao-aprenda {
+    display: none !important;
+}
+/* =========================================================
+   POLIMENTO FINAL — CHAT SISTEMA SoRAG
+   Pergaminho + petróleo + champagne
+========================================================= */
+
+/* Janela principal */
+.painel-chat {
+    background:
+        radial-gradient(
+            circle at 18% 10%,
+            rgba(213, 167, 125, .13),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 82% 86%,
+            rgba(65, 104, 102, .10),
+            transparent 40%
+        ),
+        linear-gradient(
+            145deg,
+            #d8c9b2 0%,
+            #cdbda6 52%,
+            #c3b39f 100%
+        ) !important;
+
+    border: 1px solid rgba(221, 188, 137, .48) !important;
+
+    box-shadow:
+        0 28px 65px rgba(3, 14, 17, .38),
+        inset 0 1px 0 rgba(255, 238, 207, .28),
+        0 0 25px rgba(62, 150, 145, .08) !important;
+}
+
+
+/* Cabeçalho */
+.cabecalho-chat {
+    background:
+        linear-gradient(
+            120deg,
+            #263f42 0%,
+            #365758 55%,
+            #6d5654 100%
+        ) !important;
+
+    border-bottom:
+        1px solid rgba(221, 184, 128, .28);
+}
+
+
+/* Avatar */
+.avatar-chat {
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            #e8c59d,
+            #b97c70 72%
+        ) !important;
+
+    border:
+        1px solid rgba(246, 220, 177, .38);
+
+    box-shadow:
+        0 0 16px rgba(215, 165, 112, .16);
+}
+
+
+/* Nome do tutor */
+.info-chat h2 {
+    color: #f3dfbd !important;
+
+    text-shadow:
+        0 1px 8px rgba(7, 20, 22, .25);
+}
+
+
+/* Status Online */
+.status-chat {
+    color: rgba(232, 220, 195, .78) !important;
+}
+
+
+/* Botão fechar */
+.fechar-chat {
+    color: #f3dfbd !important;
+
+    background:
+        rgba(255, 239, 210, .08) !important;
+}
+
+.fechar-chat:hover {
+    background:
+        rgba(255, 239, 210, .16) !important;
+}
+
+
+/* Área das mensagens */
+.historico-chat {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(211, 197, 176, .30),
+            rgba(191, 176, 156, .16)
+        );
+}
+
+
+/* Mensagem do RAG */
+.mensagem-rag .conteudo-mensagem {
+    background:
+        rgba(231, 215, 190, .74) !important;
+
+    border:
+        1px solid rgba(160, 128, 97, .18) !important;
+
+    color:
+        #493e3c !important;
+
+    box-shadow:
+        0 5px 15px rgba(60, 44, 39, .06);
+}
+
+
+/* Mensagem enviada pelo usuário */
+.mensagem-usuario .conteudo-mensagem {
+    background:
+        linear-gradient(
+            135deg,
+            #805e5e,
+            #45696a
+        ) !important;
+
+    color:
+        #fff1d8 !important;
+
+    border:
+        1px solid rgba(239, 209, 163, .18);
+
+    box-shadow:
+        0 5px 15px rgba(31, 48, 48, .12);
+}
+
+
+/* Caixa onde digitamos */
+#form-pergunta {
+    background:
+        rgba(224, 208, 186, .88) !important;
+
+    border:
+        1px solid rgba(139, 109, 88, .30) !important;
+
+    box-shadow:
+        inset 0 1px 5px rgba(78, 59, 52, .05),
+        0 5px 16px rgba(42, 31, 29, .08);
+}
+
+
+/* Campo de texto */
+#input-pergunta {
+    color:
+        #493d3d !important;
+
+    background:
+        transparent !important;
+}
+
+#input-pergunta::placeholder {
+    color:
+        rgba(91, 70, 75, .55) !important;
+}
+
+
+/* Botão enviar */
+.enviar-pergunta {
+    background:
+        linear-gradient(
+            145deg,
+            #a36e67,
+            #456b6b
+        ) !important;
+
+    color:
+        #f8e8ca !important;
+
+    border:
+        1px solid rgba(236, 206, 158, .24);
+
+    box-shadow:
+        0 5px 14px rgba(44, 60, 59, .18);
+}
+
+.enviar-pergunta:hover {
+    background:
+        linear-gradient(
+            145deg,
+            #b2796f,
+            #507878
+        ) !important;
+
+    box-shadow:
+        0 7px 18px rgba(44, 60, 59, .24);
+}
+
+
+/* Scrollbar do histórico */
+.historico-chat::-webkit-scrollbar {
+    width: 6px;
+}
+
+.historico-chat::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.historico-chat::-webkit-scrollbar-thumb {
+    background:
+        rgba(102, 84, 76, .28);
+
+    border-radius: 20px;
+}
+/* =========================================================
+   PROFUNDIDADE 3D — PLANETAS ATRÁS / NA FRENTE DO SOL
+========================================================= */
+
+/* Sol fica no nível intermediário */
+.nucleo-rag {
+    position: relative;
+    z-index: 3 !important;
+}
+
+/*
+O JS já define:
+planeta atrás  = z-index: 2
+planeta frente = z-index: 5
+
+Então:
+2 = atrás do Sol
+3 = Sol
+5 = na frente do Sol
+*/

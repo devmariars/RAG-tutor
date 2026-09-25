@@ -1,0 +1,180 @@
+TÍTULO:
+Fluxo completo do RAG
+
+EXPLICAÇÃO:
+O funcionamento de um sistema RAG pode ser entendido como uma sequência de etapas que conecta a pergunta do usuário às informações da base de conhecimento e, quando necessário, à geração de uma resposta.
+
+Esse fluxo pode ser dividido em dois momentos principais:
+
+1. preparação da base de conhecimento;
+2. processamento da pergunta do usuário.
+
+Na preparação da base, o sistema reúne os conteúdos que poderão ser consultados.
+
+Esses conteúdos podem ser organizados, divididos em chunks e associados a metadados, como fonte, versão, categoria ou data.
+
+Os chunks podem então ser transformados em embeddings.
+
+Um modelo de embeddings converte os conteúdos em vetores, que são representações numéricas utilizadas para comparar significados.
+
+Esses vetores podem ser armazenados em um banco vetorial ou de outra maneira adequada à arquitetura do sistema.
+
+Um banco vetorial não é obrigatório em todo RAG. Em bases pequenas, por exemplo, os embeddings podem ser armazenados e comparados diretamente em memória.
+
+Depois que a base está preparada, começa o fluxo de uma pergunta.
+
+Quando o usuário envia uma pergunta, ela também pode ser transformada em um embedding utilizando um modelo compatível com o utilizado na base.
+
+Na etapa de retrieval, o sistema compara a pergunta com os conteúdos disponíveis e procura quais informações possuem maior relevância ou similaridade semântica.
+
+O retrieval pode utilizar um banco vetorial ou outro mecanismo de busca para realizar essa recuperação.
+
+Os conteúdos considerados mais relevantes são selecionados.
+
+Antes de utilizá-los, o sistema pode verificar se os resultados encontrados são suficientemente relevantes para responder à pergunta.
+
+Um limite mínimo de similaridade, ou threshold, pode ser utilizado como um dos critérios dessa decisão.
+
+Ser o resultado mais semelhante entre os disponíveis não significa necessariamente que o conteúdo seja adequado para responder.
+
+Se nenhuma informação atingir os critérios definidos, o sistema pode reconhecer que não encontrou conhecimento suficiente na base, pedir esclarecimento ao usuário ou seguir outra estratégia prevista pela aplicação.
+
+Quando existem informações adequadas, os conteúdos recuperados formam o contexto.
+
+O contexto é o material recuperado da base que será utilizado para ajudar na resposta.
+
+Em um fluxo que utiliza geração, a pergunta do usuário, o contexto e as instruções do sistema podem ser enviados para uma LLM.
+
+A LLM é um tipo de inteligência artificial especializado em linguagem e pode utilizar essas informações para formular uma resposta em linguagem natural.
+
+A LLM não realiza sozinha todo o fluxo do RAG.
+
+A preparação da base, criação de embeddings, armazenamento, retrieval, verificação de relevância, controle de acesso e outras etapas podem ser realizadas por diferentes componentes da aplicação.
+
+Também nem toda resposta de um sistema RAG precisa obrigatoriamente passar por uma LLM.
+
+Dependendo da arquitetura e do tipo de pergunta, o sistema pode apresentar diretamente uma informação estruturada recuperada da base quando não for necessária uma nova geração.
+
+Além da recuperação e da geração, um sistema RAG pode possuir outros mecanismos.
+
+Ele pode apresentar as fontes utilizadas, registrar perguntas não respondidas, utilizar fallbacks quando algum componente estiver indisponível, coletar feedback, executar avaliações e encaminhar determinados casos para revisão humana.
+
+Também pode utilizar metadados, versionamento e controles de segurança para garantir que as informações recuperadas sejam adequadas, atuais e autorizadas para aquele usuário.
+
+Assim, RAG não é apenas uma chamada para uma LLM.
+
+Ele é uma arquitetura que combina uma fonte de conhecimento, mecanismos de recuperação e regras para utilizar as informações encontradas na construção de respostas.
+
+EXPLICAÇÃO SIMPLES:
+Imagine o RAG em duas partes.
+
+Primeiro, preparamos a biblioteca:
+
+1. Colocamos os conteúdos na base de conhecimento.
+
+2. Podemos dividir conteúdos grandes em chunks.
+
+3. Um modelo de embeddings transforma esses conteúdos em vetores que representam seus significados.
+
+4. Esses vetores ficam armazenados de uma forma que permita comparações, como em memória ou em um banco vetorial.
+
+Depois vem a pergunta:
+
+5. O usuário faz uma pergunta.
+
+6. A pergunta também pode ser transformada em embedding.
+
+7. O retrieval procura quais conteúdos da base possuem mais relação com a pergunta.
+
+8. O sistema verifica se encontrou informação suficientemente relevante.
+
+9. Os conteúdos aprovados formam o contexto.
+
+10. Se for necessário gerar uma nova resposta, a LLM recebe a pergunta, as instruções e o contexto.
+
+11. A LLM interpreta essas informações e formula a resposta.
+
+12. A aplicação entrega a resposta e pode apresentar as fontes utilizadas.
+
+Se não houver informação suficiente, o sistema não deveria escolher qualquer conteúdo apenas para conseguir responder.
+
+E se a informação recuperada já puder ser apresentada diretamente, a aplicação não precisa obrigatoriamente utilizar uma LLM.
+
+Em resumo:
+
+Base guarda o conhecimento.
+
+Chunking organiza o conteúdo em partes.
+
+Embeddings representam significados numericamente.
+
+Banco vetorial pode armazenar e pesquisar vetores.
+
+Retrieval procura e recupera informações.
+
+Contexto é a informação recuperada.
+
+LLM pode interpretar o contexto e gerar a resposta.
+
+Regras de controle ajudam o sistema a decidir quando responder, quando admitir uma limitação e quando utilizar outra estratégia.
+
+EXEMPLO:
+Imagine que o usuário pergunte:
+
+"O que é embedding?"
+
+Antes dessa pergunta acontecer, os conteúdos da base já foram preparados.
+
+O documento sobre embeddings foi armazenado na base, transformado em um ou mais chunks e representado numericamente por embeddings.
+
+Quando o usuário envia a pergunta:
+
+"O que é embedding?"
+
+a pergunta também é transformada em um embedding.
+
+O sistema compara esse vetor com os vetores dos conteúdos da base.
+
+O retrieval identifica que o conteúdo sobre embeddings possui alta similaridade com a pergunta.
+
+O sistema verifica se essa similaridade é suficiente de acordo com os critérios definidos.
+
+O conteúdo é recuperado e passa a formar o contexto.
+
+A partir daí, existem diferentes possibilidades dependendo da arquitetura.
+
+Se a aplicação precisar de uma resposta gerada, uma LLM pode receber:
+
+- a pergunta do usuário;
+- as instruções do sistema;
+- o contexto recuperado.
+
+Com essas informações, a LLM formula uma explicação sobre embeddings.
+
+Se a aplicação possuir uma explicação estruturada adequada na própria base, ela também pode apresentar diretamente esse conteúdo sem utilizar uma LLM.
+
+Por outro lado, imagine que o usuário pergunte:
+
+"Qual é a capital da Austrália?"
+
+e a base possua apenas conteúdos sobre RAG.
+
+Mesmo que algum arquivo seja matematicamente o mais semelhante entre os disponíveis, ele pode não atingir o nível mínimo de relevância.
+
+Nesse caso, o sistema pode reconhecer que não encontrou conhecimento adequado na base em vez de gerar uma resposta sem fundamento.
+
+RESUMO:
+O fluxo de um RAG começa com a preparação da base de conhecimento, que pode envolver chunking, embeddings, metadados e armazenamento.
+
+Quando uma pergunta é recebida, o retrieval procura conteúdos relevantes e o sistema pode verificar se eles são adequados antes de utilizá-los.
+
+Os conteúdos recuperados formam o contexto.
+
+Quando necessário, uma LLM pode utilizar a pergunta, as instruções e o contexto para gerar uma resposta.
+
+Nem todo RAG precisa de banco vetorial e nem toda resposta precisa obrigatoriamente passar por uma LLM.
+
+O sistema também pode utilizar fontes, threshold, versionamento, segurança, fallbacks, evals e revisão humana para controlar e melhorar seu comportamento.
+
+TERMOS RELACIONADOS:
+RAG, fluxo do RAG, arquitetura RAG, base de conhecimento, chunks, chunking, overlap, embeddings, modelo de embeddings, vetores, banco vetorial, memória, retrieval, recuperação, similaridade, threshold, contexto, LLM, inteligência artificial, geração, prompt, instruções, fontes, metadados, versionamento, segurança, fallback, evals, HITL.

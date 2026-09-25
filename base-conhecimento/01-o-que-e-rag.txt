@@ -1,0 +1,55 @@
+TÍTULO:
+O que é RAG
+
+EXPLICAÇÃO:
+RAG significa Retrieval-Augmented Generation, ou Geração Aumentada por Recuperação.
+
+RAG é uma técnica usada em sistemas de inteligência artificial para permitir que uma IA consulte uma base de conhecimento antes de formular uma resposta.
+
+O RAG não é, por si só, uma inteligência artificial nem um modelo de linguagem. Ele é uma forma de organizar o processo de busca e geração de respostas, conectando uma fonte de conhecimento a um modelo de linguagem.
+
+Quando o usuário faz uma pergunta, o sistema procura na base de conhecimento as informações mais relacionadas à pergunta. As informações encontradas são recuperadas e enviadas como contexto para o modelo de linguagem, que usa esse contexto para formular a resposta.
+
+Por isso, o RAG também não substitui a LLM. O RAG recupera e fornece informações, enquanto o modelo de linguagem utiliza essas informações para produzir a resposta.
+
+O RAG não treina novamente a inteligência artificial e não faz com que o modelo aprenda permanentemente os documentos consultados. Em vez disso, ele fornece informações externas no momento em que a resposta será produzida.
+
+A fonte consultada também não precisa ser necessariamente a internet. Um sistema RAG pode trabalhar com uma base de conhecimento específica, formada, por exemplo, por documentos, textos ou outros conteúdos preparados para aquele sistema.
+
+Isso permite criar respostas baseadas em uma fonte de conhecimento definida e facilita a atualização das informações, pois a base pode ser modificada sem precisar treinar novamente o modelo.
+
+EXPLICAÇÃO SIMPLES:
+Imagine que a inteligência artificial está fazendo uma prova com consulta.
+
+Em vez de responder apenas com aquilo que já sabe, ela primeiro procura a informação em uma biblioteca preparada para ela.
+
+Depois de encontrar o conteúdo relacionado à pergunta, ela coloca essa informação sobre a mesa e utiliza esse material para responder.
+
+No RAG, essa biblioteca é a base de conhecimento.
+
+O RAG é o processo que ajuda a procurar e entregar o material correto para a inteligência artificial. Ele não é a própria inteligência artificial.
+
+A inteligência artificial também não precisa decorar permanentemente essa biblioteca. Ela consulta as informações necessárias quando precisa responder.
+
+EXEMPLO:
+Imagine um RAG criado para responder dúvidas sobre uma empresa.
+
+Se alguém perguntar:
+
+"Qual é a política de férias da empresa?"
+
+O sistema procura essa informação nos documentos da empresa, recupera os trechos mais relacionados à pergunta e entrega esse conteúdo para a inteligência artificial formular a resposta.
+
+Assim, a resposta pode ser baseada nos documentos da empresa em vez de depender apenas do conhecimento geral do modelo.
+
+Nesse caso, o RAG não precisa pesquisar a internet. Ele pode consultar somente os documentos definidos como base de conhecimento da empresa.
+
+RESUMO:
+RAG é uma técnica que conecta uma base de conhecimento a uma inteligência artificial.
+
+O sistema recupera informações relevantes da base e fornece essas informações como contexto para um modelo de linguagem gerar uma resposta.
+
+RAG não é uma IA nem uma LLM, não substitui o modelo de linguagem e não exige que os documentos sejam aprendidos permanentemente pelo modelo.
+
+TERMOS RELACIONADOS:
+RAG, Retrieval-Augmented Generation, recuperação, retrieval, base de conhecimento, contexto, LLM, modelo de linguagem, inteligência artificial, geração, busca de informações, documentos, conhecimento externo.

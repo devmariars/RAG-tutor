@@ -1,0 +1,97 @@
+TÍTULO:
+Banco vetorial
+
+EXPLICAÇÃO:
+Um banco vetorial é um sistema desenvolvido para armazenar, organizar e pesquisar vetores, como os embeddings gerados a partir dos conteúdos de uma base de conhecimento.
+
+Quando textos são transformados em embeddings, eles passam a ter representações numéricas que podem ser comparadas matematicamente.
+
+Um banco vetorial permite armazenar essas representações e realizar buscas por similaridade.
+
+Quando o usuário faz uma pergunta, o sistema pode transformar a pergunta em um embedding e procurar quais vetores armazenados são mais semelhantes ao vetor da pergunta.
+
+Os conteúdos associados aos vetores mais semelhantes podem então ser recuperados e utilizados como contexto pelo sistema RAG.
+
+Dependendo da arquitetura, o banco vetorial pode armazenar os vetores junto com informações associadas, como o texto original, identificadores, fonte, metadados ou referências que permitam localizar o conteúdo correspondente.
+
+Por isso, o banco vetorial não deve ser entendido apenas como um lugar onde números ficam guardados. Ele também pode manter informações que ajudam o sistema a relacionar cada vetor ao conteúdo que ele representa.
+
+Um banco vetorial não é exatamente a mesma coisa que um banco de dados tradicional.
+
+Bancos de dados tradicionais costumam ser utilizados para armazenar e consultar informações estruturadas por valores, campos, filtros ou correspondências exatas.
+
+Já um banco vetorial é especializado em armazenar vetores e realizar buscas por similaridade entre eles.
+
+Isso permite procurar conteúdos semanticamente relacionados mesmo quando as palavras usadas não são exatamente iguais.
+
+O banco vetorial é especialmente útil quando existe uma grande quantidade de conteúdos e é necessário realizar buscas de forma eficiente.
+
+Porém, nem todo sistema RAG precisa obrigatoriamente utilizar um banco vetorial.
+
+Em bases pequenas, os embeddings podem ser armazenados e comparados de outras maneiras, inclusive diretamente em memória.
+
+O retrieval é o processo de recuperação das informações relevantes.
+
+O banco vetorial pode ser uma ferramenta utilizada durante esse processo para encontrar os vetores mais semelhantes à pergunta.
+
+Portanto, banco vetorial e retrieval não são a mesma coisa.
+
+O banco vetorial também não interpreta a resposta do usuário, não gera texto e não substitui o modelo de linguagem.
+
+Sua principal função é ajudar no armazenamento e na busca eficiente de vetores e dos conteúdos associados a eles.
+
+EXPLICAÇÃO SIMPLES:
+Imagine que cada conteúdo da base recebeu um endereço numérico criado pelo embedding.
+
+O banco vetorial funciona como um arquivo organizado que guarda esses endereços e ajuda a encontrar rapidamente quais estão mais próximos do endereço da pergunta.
+
+É como perguntar:
+
+"Entre todos os conteúdos que tenho guardados, quais parecem falar sobre algo mais parecido com esta pergunta?"
+
+O banco vetorial ajuda o sistema a localizar esses conteúdos.
+
+Ele não escreve a resposta.
+
+Ele apenas ajuda na busca.
+
+Também não é obrigatório em todo RAG.
+
+Se a base for pequena, o sistema pode guardar e comparar os embeddings diretamente na memória sem precisar de um banco vetorial separado.
+
+EXEMPLO:
+Imagine uma base com milhares de documentos.
+
+Cada parte relevante desses documentos possui um embedding armazenado em um banco vetorial.
+
+Além do vetor, o sistema pode manter informações que indiquem de qual documento aquele embedding veio e qual trecho de texto ele representa.
+
+O usuário pergunta:
+
+"Como funcionam as férias?"
+
+A pergunta também é transformada em um embedding.
+
+O sistema utiliza o banco vetorial para procurar os vetores mais semelhantes ao vetor da pergunta.
+
+Os conteúdos associados aos resultados mais próximos podem incluir, por exemplo, um trecho da política de férias da empresa.
+
+Esse conteúdo pode então ser recuperado e enviado como contexto para o modelo de linguagem.
+
+Agora imagine um RAG com apenas alguns poucos documentos.
+
+Nesse caso, o sistema pode comparar os embeddings diretamente em memória sem utilizar um banco vetorial separado.
+
+Por isso, banco vetorial é uma ferramenta útil, mas não uma obrigação em todo sistema RAG.
+
+RESUMO:
+Banco vetorial é um sistema especializado em armazenar e pesquisar vetores, como embeddings.
+
+Em um RAG, ele pode ser utilizado para encontrar rapidamente os conteúdos semanticamente mais semelhantes à pergunta do usuário.
+
+Ele pode guardar vetores junto com informações associadas ao conteúdo, mas não gera respostas e não substitui a LLM.
+
+Nem todo RAG precisa de banco vetorial. Em bases pequenas, os embeddings podem ser armazenados e comparados diretamente em memória.
+
+TERMOS RELACIONADOS:
+banco vetorial, vector database, vetor, vetores, embedding, embeddings, similaridade, similaridade semântica, busca vetorial, armazenamento, memória, metadados, recuperação, retrieval, RAG, banco de dados, contexto.

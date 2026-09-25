@@ -1,0 +1,123 @@
+TÍTULO:
+Contexto e LLM
+
+EXPLICAÇÃO:
+LLM significa Large Language Model, ou modelo de linguagem de grande escala.
+
+Uma LLM é um tipo de inteligência artificial especializado em compreender e gerar linguagem natural.
+
+Ela não é a mesma coisa que o RAG. A LLM é um dos componentes que podem fazer parte de um sistema RAG, sendo normalmente responsável pela etapa de geração da resposta.
+
+No RAG, contexto é o conjunto de informações recuperadas da base de conhecimento e fornecidas ao modelo de linguagem para ajudá-lo a responder à pergunta do usuário.
+
+A pergunta do usuário e o contexto são coisas diferentes.
+
+A pergunta representa aquilo que o usuário quer saber. O contexto representa as informações recuperadas da base que podem ajudar a responder essa pergunta.
+
+Depois que o retrieval encontra os conteúdos considerados mais relevantes, esses conteúdos podem ser organizados e enviados para a LLM junto com a pergunta e as instruções do sistema.
+
+A LLM recebe esses elementos, interpreta as informações disponíveis e formula uma resposta em linguagem natural.
+
+Por isso, é possível pensar na LLM como a parte responsável por transformar a pergunta e o material recuperado em uma resposta compreensível para o usuário.
+
+Uma LLM também não é necessariamente a mesma coisa que um chatbot.
+
+A LLM é o modelo de linguagem. Um chatbot é uma aplicação ou interface de conversa que pode utilizar uma LLM por trás para interpretar mensagens e produzir respostas.
+
+O contexto fornecido durante uma pergunta não se torna automaticamente conhecimento permanente da LLM.
+
+Ele é uma informação disponibilizada naquele momento para ajudar na geração daquela resposta.
+
+Portanto, fornecer um documento como contexto não significa que a LLM foi retreinada ou que memorizou permanentemente aquele conteúdo.
+
+Em um RAG, é possível instruir a LLM a responder somente com base no contexto recuperado.
+
+Isso ajuda a limitar o uso de informações externas e reduz o risco de o modelo inventar informações que não estão presentes na base.
+
+Se o contexto não possuir informação suficiente para responder à pergunta, um sistema bem controlado pode instruir a LLM a reconhecer essa limitação em vez de completar a resposta com informações não sustentadas pela base.
+
+Mesmo assim, receber um contexto não garante automaticamente uma resposta correta.
+
+Se o retrieval fornecer informações erradas, insuficientes ou pouco relevantes, a geração também pode ser prejudicada.
+
+Também é possível que o contexto esteja correto, mas a LLM interprete ou formule a resposta de maneira inadequada.
+
+Por isso, retrieval e geração são etapas diferentes e podem apresentar problemas diferentes.
+
+A LLM também não realiza necessariamente todas as tarefas de um sistema RAG.
+
+Outras partes do sistema podem cuidar da base de conhecimento, dos embeddings, da recuperação, das regras de segurança, da memória da conversa e de outras etapas.
+
+Nem toda resposta de um sistema RAG precisa obrigatoriamente ser gerada por uma LLM.
+
+Dependendo da arquitetura, o sistema pode apresentar diretamente uma informação estruturada recuperada da base quando isso for suficiente.
+
+A LLM é especialmente útil quando é necessário interpretar, organizar, adaptar ou formular o conteúdo recuperado em uma resposta natural.
+
+EXPLICAÇÃO SIMPLES:
+Pense no RAG como uma prova com consulta.
+
+O retrieval procura nos materiais.
+
+O contexto é o material encontrado e colocado sobre a mesa.
+
+A LLM é um tipo de inteligência artificial que lê a pergunta, analisa esse material e formula a resposta.
+
+Então:
+
+Retrieval procura.
+Contexto fornece a informação encontrada.
+LLM interpreta e escreve a resposta.
+
+A pergunta e o contexto não são a mesma coisa.
+
+A pergunta é aquilo que o usuário quer saber.
+
+O contexto é o material que o sistema encontrou para ajudar a responder.
+
+A LLM também não precisa decorar permanentemente esse material. Ela recebe as informações necessárias naquele momento e utiliza essas informações para produzir a resposta.
+
+Se o material não possuir informação suficiente, o sistema pode orientar a LLM a admitir essa limitação em vez de inventar uma resposta.
+
+EXEMPLO:
+Imagine que o usuário pergunte:
+
+"O que é embedding?"
+
+O retrieval procura na base de conhecimento e recupera conteúdos relacionados a embeddings.
+
+A pergunta:
+
+"O que é embedding?"
+
+continua sendo a pergunta do usuário.
+
+Os conteúdos encontrados sobre embeddings formam o contexto.
+
+A LLM recebe a pergunta e esse contexto e pode formular uma explicação natural, como faria um professor explicando o conceito.
+
+Nesse processo:
+
+Retrieval encontrou a informação.
+O contexto contém a informação encontrada.
+A LLM formulou a resposta.
+
+A LLM não precisou aprender permanentemente o conteúdo sobre embeddings para responder. Ela utilizou o contexto fornecido naquele momento.
+
+Se a LLM estiver indisponível, o conteúdo recuperado ainda existe, mas aquela etapa de geração não poderá ser realizada por ela.
+
+Nesse caso, dependendo da arquitetura, o sistema pode utilizar outra estratégia previamente definida, como apresentar diretamente uma explicação estruturada recuperada da base de conhecimento.
+
+RESUMO:
+Uma LLM é um tipo de inteligência artificial especializado em linguagem e pode ser utilizada no RAG para gerar respostas.
+
+Contexto é a informação recuperada da base e fornecida à LLM junto com a pergunta e as instruções.
+
+A pergunta representa o que o usuário quer saber, enquanto o contexto fornece informações para ajudar na resposta.
+
+A LLM não aprende permanentemente o contexto apenas por recebê-lo e não é a mesma coisa que RAG ou chatbot.
+
+No RAG, retrieval e geração são etapas diferentes, e nem toda resposta precisa obrigatoriamente passar por uma LLM quando a informação recuperada já pode ser apresentada diretamente.
+
+TERMOS RELACIONADOS:
+contexto, LLM, Large Language Model, modelo de linguagem, inteligência artificial, IA, geração, resposta, retrieval, recuperação, pergunta, prompt, instruções, chatbot, base de conhecimento, informação recuperada, geração controlada, RAG.

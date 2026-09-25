@@ -1,0 +1,86 @@
+TÍTULO:
+Chunks e chunking
+
+EXPLICAÇÃO:
+Chunks são partes menores de um conteúdo maior.
+
+Chunking é o processo de dividir documentos ou textos em chunks para que o sistema RAG consiga trabalhar com partes menores da informação durante a recuperação.
+
+Na prática, um chunk pode ser um trecho de texto, um parágrafo, uma seção ou outro recorte de conteúdo, dependendo de como o sistema foi configurado.
+
+Em vez de recuperar um documento inteiro sempre que alguém faz uma pergunta, o sistema pode procurar quais partes desse documento são mais relacionadas ao que o usuário perguntou.
+
+Isso ajuda o retrieval a encontrar informações mais específicas e evita enviar grandes quantidades de conteúdo desnecessário como contexto para o modelo de linguagem.
+
+Nem sempre existe um único tamanho ideal de chunk.
+
+O tamanho e a forma como os chunks são criados influenciam diretamente a recuperação.
+
+Se um chunk for grande demais, ele pode misturar vários assuntos, trazer informação desnecessária e dificultar a identificação da parte realmente relevante.
+
+Se um chunk for pequeno demais, uma informação importante pode ficar separada do contexto necessário para compreendê-la.
+
+Por isso, chunks maiores não são automaticamente melhores, e chunks menores também não são automaticamente melhores.
+
+O objetivo do chunking é encontrar um equilíbrio entre manter contexto suficiente e permitir uma recuperação mais precisa.
+
+A forma de dividir os chunks depende do tipo de conteúdo e da estratégia usada no sistema.
+
+Um documento pode ser dividido, por exemplo, por tamanho de texto, por parágrafos, por seções, por tópicos ou por outras regras.
+
+Também é importante evitar divisões que cortem informações importantes no meio, pois isso pode prejudicar o sentido do conteúdo recuperado.
+
+Nem todo sistema RAG precisa dividir todos os documentos exatamente da mesma forma. A estratégia de chunking pode ser ajustada conforme o tipo de base de conhecimento e o objetivo do sistema.
+
+EXPLICAÇÃO SIMPLES:
+Imagine um livro muito grande.
+
+Se você quiser descobrir apenas o que o livro diz sobre embeddings, seria pouco eficiente entregar o livro inteiro para alguém procurar a resposta.
+
+O chunking funciona como dividir esse livro em vários pedaços menores e organizados.
+
+Cada pedaço é um chunk.
+
+Esses pedaços precisam ter um tamanho equilibrado.
+
+Se forem grandes demais, podem misturar assuntos diferentes.
+
+Se forem pequenos demais, podem perder partes importantes da explicação.
+
+Por isso, o objetivo não é criar o maior ou o menor chunk possível, mas criar pedaços que continuem fazendo sentido e sejam fáceis de recuperar.
+
+Assim, quando você faz uma pergunta, o sistema pode procurar quais pedaços têm mais relação com o assunto em vez de trabalhar com o documento inteiro.
+
+EXEMPLO:
+Imagine um manual com informações sobre férias, benefícios, horários e regras de uma empresa.
+
+Esse manual pode ser dividido em chunks diferentes, por exemplo:
+
+- um chunk sobre férias;
+- um chunk sobre benefícios;
+- um chunk sobre horários;
+- um chunk sobre regras internas.
+
+Se alguém perguntar:
+
+"Como funcionam as férias?"
+
+o sistema pode recuperar principalmente o chunk que contém as informações sobre férias, em vez de recuperar todo o manual.
+
+Agora imagine que o chunk sobre férias seja tão pequeno que uma regra importante fique separada em outro trecho.
+
+Nesse caso, o sistema pode recuperar apenas parte da informação e perder contexto.
+
+Por outro lado, se o chunk incluir férias, benefícios, horários e regras internas ao mesmo tempo, pode trazer informação demais para uma pergunta simples.
+
+Esse equilíbrio é uma das principais decisões do chunking.
+
+RESUMO:
+Chunk é uma parte menor de um conteúdo.
+
+Chunking é o processo de dividir conteúdos maiores em partes menores para facilitar a recuperação de informações relevantes pelo RAG.
+
+Chunks grandes demais podem misturar assuntos, enquanto chunks pequenos demais podem perder contexto. Por isso, o tamanho e a forma de divisão devem buscar equilíbrio entre precisão e compreensão.
+
+TERMOS RELACIONADOS:
+chunk, chunks, chunking, divisão de texto, divisão de documentos, partes do texto, partes do documento, tamanho de chunk, contexto, recuperação, retrieval, precisão, seções, parágrafos, RAG.

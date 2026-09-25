@@ -1,0 +1,5 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+http127.0.0.15000.txt

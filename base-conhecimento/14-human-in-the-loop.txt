@@ -1,0 +1,126 @@
+TÍTULO:
+Human in the Loop (HITL)
+
+EXPLICAÇÃO:
+Human in the Loop, também chamado de HITL, significa incluir participação humana em determinadas etapas ou decisões de um sistema de inteligência artificial.
+
+HITL não é um modelo de inteligência artificial, uma LLM ou uma ferramenta específica.
+
+Ele é uma estratégia de projeto em que determinadas situações são encaminhadas para uma pessoa em vez de serem resolvidas completamente de forma automática.
+
+Em um sistema RAG, nem todas as situações precisam ser resolvidas automaticamente.
+
+Alguns casos podem apresentar informações insuficientes, conflitantes, duvidosas, sensíveis ou importantes demais para que o sistema tome uma decisão sozinho.
+
+Nessas situações, o RAG pode encaminhar o caso para revisão humana.
+
+A pessoa responsável pode analisar a pergunta, verificar as fontes recuperadas, avaliar a resposta e decidir qual ação deve ser tomada.
+
+Isso não significa que uma pessoa precise revisar todas as respostas do sistema.
+
+O objetivo do HITL é justamente definir quais situações podem continuar automaticamente e quais exigem participação humana.
+
+Esses critérios dependem do objetivo e do nível de risco do sistema.
+
+Por exemplo, um sistema pode ser configurado para solicitar revisão humana quando:
+
+- existem informações conflitantes;
+- não existe informação suficiente na base;
+- a confiança ou relevância dos resultados é baixa;
+- a decisão possui consequências importantes;
+- existem dúvidas sobre a validade das fontes;
+- uma regra do sistema determina que aquele tipo de caso exige aprovação humana.
+
+O HITL também pode ser utilizado para analisar perguntas que o sistema não conseguiu responder.
+
+Essas perguntas podem ser registradas e posteriormente revisadas por uma pessoa, que poderá decidir se a base de conhecimento precisa ser atualizada ou se existe algum problema no retrieval.
+
+A participação humana também pode ajudar na manutenção e melhoria do sistema.
+
+Ao analisar casos problemáticos, uma pessoa pode identificar falhas na base, documentos desatualizados, perguntas recorrentes, problemas de recuperação ou comportamentos que precisam ser ajustados.
+
+HITL e fallback são conceitos diferentes, embora possam aparecer no mesmo sistema.
+
+Fallback é uma estratégia alternativa utilizada quando o fluxo principal não pode continuar normalmente.
+
+Por exemplo, se uma LLM estiver indisponível, o sistema pode apresentar diretamente uma informação recuperada da base.
+
+HITL acontece quando a estratégia definida é envolver uma pessoa no processo.
+
+Portanto, chamar um humano pode ser uma forma de tratamento para determinados casos, mas nem todo fallback precisa envolver revisão humana.
+
+A participação humana não significa necessariamente que o sistema falhou.
+
+Ela pode fazer parte do próprio projeto, especialmente quando existem situações que exigem julgamento, confirmação, autorização ou maior nível de segurança.
+
+O objetivo é automatizar aquilo que pode ser tratado com segurança e definir claramente quando uma pessoa deve participar do processo.
+
+EXPLICAÇÃO SIMPLES:
+Imagine que o RAG trabalha sozinho na maior parte do tempo.
+
+Quando aparece uma pergunta normal e ele encontra uma informação adequada, o fluxo continua automaticamente.
+
+Mas aparece uma situação estranha:
+
+duas fontes apresentam informações diferentes.
+
+Em vez de escolher uma delas no chute, o sistema pode dizer:
+
+"Esse caso precisa ser verificado por uma pessoa."
+
+É como se o sistema tivesse uma regra:
+
+"Se acontecer determinada situação, chamar um humano."
+
+Isso é Human in the Loop.
+
+O humano não precisa ficar olhando cada resposta.
+
+Ele entra apenas nos casos em que o sistema foi configurado para pedir ajuda, revisão ou aprovação.
+
+Por isso, HITL não é uma IA.
+
+É uma forma de combinar automação com participação humana quando necessário.
+
+EXEMPLO:
+Imagine um RAG utilizado para responder dúvidas sobre regras de uma empresa.
+
+O usuário faz uma pergunta e o sistema encontra dois documentos:
+
+Um documento afirma que determinado benefício está disponível.
+
+Outro afirma que o mesmo benefício foi encerrado.
+
+Em vez de escolher automaticamente uma das informações, o sistema pode encaminhar a dúvida e as fontes encontradas para revisão humana.
+
+A pessoa responsável verifica os documentos, identifica qual informação está vigente e decide como o caso deve ser tratado.
+
+Outro exemplo ocorre quando várias pessoas fazem uma pergunta que não existe na base.
+
+O sistema pode registrar essas perguntas.
+
+Depois, uma pessoa analisa os registros e percebe que existe uma dúvida frequente ainda não coberta pela base de conhecimento.
+
+Ela pode então decidir adicionar uma nova informação à base.
+
+Agora imagine uma situação diferente:
+
+a LLM está temporariamente indisponível, mas o sistema consegue recuperar uma explicação pronta da base.
+
+Nesse caso, a aplicação pode utilizar essa explicação como fallback sem chamar uma pessoa.
+
+Isso mostra que fallback e HITL não são necessariamente a mesma coisa.
+
+RESUMO:
+Human in the Loop é uma estratégia que inclui participação humana em determinadas etapas ou decisões de um sistema de IA.
+
+HITL não é uma IA ou LLM.
+
+Em RAG, pode ser utilizado para revisar casos duvidosos, conflitantes, sensíveis, importantes ou perguntas que o sistema não conseguiu responder.
+
+O humano não precisa revisar todas as respostas. O sistema pode definir critérios para determinar quando a automação continua sozinha e quando uma pessoa deve participar.
+
+HITL também pode contribuir para melhorar a base e identificar problemas no sistema ao longo do tempo.
+
+TERMOS RELACIONADOS:
+Human in the Loop, HITL, humano no processo, revisão humana, validação humana, supervisão, aprovação humana, julgamento humano, conflito de informações, informação insuficiente, pergunta não respondida, tomada de decisão, automação, fallback, confiança, risco, melhoria contínua, RAG.

@@ -1,0 +1,103 @@
+TÍTULO:
+Embeddings
+
+EXPLICAÇÃO:
+Embedding é uma representação numérica do significado de um conteúdo, como uma palavra, frase ou trecho de texto.
+
+Um modelo de embeddings transforma o conteúdo em uma sequência de números chamada vetor.
+
+O embedding não é o texto original. Ele é uma representação matemática criada a partir desse conteúdo para permitir comparações.
+
+Também não é uma resposta, um resumo ou uma explicação do texto.
+
+Sua função é ajudar o sistema a identificar relações de significado entre diferentes conteúdos.
+
+Em um sistema RAG, embeddings podem ser criados para os conteúdos da base de conhecimento e também para a pergunta do usuário.
+
+Depois, o sistema compara o embedding da pergunta com os embeddings dos conteúdos da base para identificar quais informações possuem maior semelhança semântica com a pergunta.
+
+Isso permite realizar uma busca baseada em significado, e não apenas na presença das mesmas palavras.
+
+Por exemplo, duas frases podem utilizar palavras diferentes e ainda assim possuir significados semelhantes. Nesse caso, seus embeddings podem ficar próximos no espaço vetorial.
+
+Quanto maior a semelhança entre os vetores, maior tende a ser a relação semântica entre os conteúdos que eles representam.
+
+Essa proximidade não significa que os textos são idênticos. Ela indica que o modelo de embeddings identificou uma relação de significado entre eles.
+
+O embedding é criado por um modelo específico de embeddings.
+
+Existem diferentes modelos de embeddings, e eles podem produzir representações diferentes para o mesmo conteúdo.
+
+Por isso, os embeddings da base e o embedding da pergunta normalmente devem ser gerados de forma compatível, usando a mesma estratégia ou modelo adequado para comparação.
+
+Um modelo de embeddings também não é a mesma coisa que uma LLM.
+
+A função principal do modelo de embeddings é transformar conteúdo em vetores para comparação semântica, enquanto uma LLM pode ser utilizada para interpretar linguagem e formular respostas.
+
+No RAG, o embedding ajuda principalmente na etapa de recuperação.
+
+Ele não decide sozinho qual será a resposta final e não gera a resposta para o usuário.
+
+EXPLICAÇÃO SIMPLES:
+Imagine que cada texto recebe uma espécie de endereço baseado no seu significado.
+
+Textos que falam sobre assuntos parecidos recebem endereços mais próximos, enquanto textos sobre assuntos muito diferentes ficam mais distantes.
+
+Por exemplo:
+
+"Como funcionam as férias?"
+
+e
+
+"Quantos dias posso ficar de férias?"
+
+não são frases iguais, mas possuem significados relacionados.
+
+Os embeddings ajudam o computador a perceber essa proximidade.
+
+É como transformar o significado das frases em coordenadas que podem ser comparadas.
+
+Essas coordenadas não são o texto original e não são uma resposta.
+
+Elas servem para ajudar o sistema a descobrir quais conteúdos parecem mais relacionados entre si.
+
+Um modelo de embeddings é a ferramenta que cria essas coordenadas.
+
+Depois, o sistema compara as coordenadas da pergunta com as coordenadas dos conteúdos da base para procurar os mais próximos.
+
+EXEMPLO:
+Imagine que a base de conhecimento possui estes conteúdos:
+
+1. "Funcionários podem solicitar férias seguindo as regras da empresa."
+
+2. "O estacionamento funciona das 8h às 18h."
+
+O usuário pergunta:
+
+"Como posso tirar alguns dias de descanso do trabalho?"
+
+A pergunta não utiliza necessariamente a palavra "férias".
+
+Mesmo assim, o embedding da pergunta pode ficar mais próximo do embedding do primeiro conteúdo porque os significados são relacionados.
+
+O sistema pode então identificar o conteúdo sobre férias como mais relevante para a pergunta.
+
+Nesse exemplo, o embedding não responde:
+
+"Você pode tirar férias desta forma."
+
+Ele apenas ajuda o retrieval a identificar qual conteúdo da base parece mais relacionado à pergunta.
+
+Depois dessa recuperação, o conteúdo encontrado pode ser utilizado como contexto para a etapa de geração da resposta.
+
+RESUMO:
+Embedding é uma representação numérica do significado de um conteúdo.
+
+Um modelo de embeddings transforma textos em vetores que podem ser comparados matematicamente.
+
+No RAG, embeddings ajudam a localizar conteúdos semanticamente relacionados à pergunta do usuário.
+
+Eles não são o texto original, não são uma resposta e não substituem a LLM. Sua principal função é apoiar a recuperação de informações.
+
+TERMOS RELACIONADOS:
+embedding, embeddings, vetor, vetores, representação numérica, coordenadas, significado, semântica, similaridade semântica, busca semântica, comparação, proximidade, modelo de embeddings, espaço vetorial, retrieval, recuperação, RAG, LLM.
