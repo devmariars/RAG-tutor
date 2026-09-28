@@ -3306,3 +3306,11 @@ Então:
 3 = Sol
 5 = na frente do Sol
 */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
